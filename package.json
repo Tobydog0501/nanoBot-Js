@@ -19,6 +19,6 @@
   "license": "ISC",
   "engines": {
     "node": "16.x",
-    "npm": "8.13.1"
+    "npm": "8.x"
   }
 }
