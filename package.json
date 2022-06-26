@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "@discordjs/rest": "^0.5.0",
+    "@discordjs/voice": "^0.10.0",
+    "discord-api-types": "^0.34.0",
+    "discord-modals": "^1.3.7",
+    "discord.js": "^13.8.0",
+    "node-fetch": "^2.6.1"
+  },
+  "name": "discord-bot-js-example",
+  "description": "https://discord.js.org/#/docs/main/stable/general/welcome\r https://nodejs.org/en/download/",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node ./bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.13.1"
+  }
+}
