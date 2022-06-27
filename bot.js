@@ -6,7 +6,9 @@ var ui = require('./env.json');
 const discordModals = require('discord-modals');
 const { Modal, TextInputComponent, showModal } = discordModals;
 const token = process.env.tkn
-const TOKEN = require("./token.json")
+try{
+	const TOKEN = require("./token.json")
+}catch{}
 const bot = new Client({
     intents: [
         Intents.FLAGS.DIRECT_MESSAGES,
