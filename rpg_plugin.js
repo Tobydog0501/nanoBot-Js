@@ -1,4 +1,5 @@
 module.exports = {
+    pi:3.14,    //new added
     rank(bot,msg,Discord){  //read
         return;
     },
@@ -12,9 +13,9 @@ module.exports = {
         return;
     },
 
-    task(bot,msg,Discord){
+    task(bot,msg,Discord){  //random task
         return;
     },
 
-    
+
 }
