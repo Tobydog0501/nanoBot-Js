@@ -3,6 +3,7 @@ module.exports = {
     description:'verify',
     category:"test",
     async execute(bot,msg,args,Discord){
+        return;
         let com = new Discord.MessageActionRow()
             .setComponents([
                 new Discord.MessageButton()

@@ -3,6 +3,7 @@ module.exports = {
     description:'reportBtn',
     category:"test",
     async execute(bot,msg,args,Discord){
+        return;
         var com = new Discord.MessageActionRow()
             .setComponents([
                 new Discord.MessageButton()
