@@ -5,9 +5,8 @@ const fetch = require('node-fetch');
 var ui = require('./env.json');
 const discordModals = require('discord-modals');
 const { Modal, TextInputComponent, showModal } = discordModals;
-const token = process.env.tkn
 const path = "./token.json"
-const TOKEN = fs.existsSync(path)?require(path):undefined
+const TOKEN = fs.existsSync(path)?require(path).tkn:process.env.tkn
 
 const bot = new Client({
     intents: [
@@ -35,4 +34,4 @@ setInterval(async()=>{
   await fetch("https://quickest-strong-nickel.glitch.me").then(console.log('ping'))
 },120000)
  
-bot.login(token?token:TOKEN.tkn);
+bot.login(TOKEN);

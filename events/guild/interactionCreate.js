@@ -209,7 +209,7 @@ module.exports = async(Discord,bot,inter)=>{
     const slashCommand = bot.commands.get(inter.commandName)
     if(slashCommand){
       try{
-        await slashCommand.execute(inter,Discord);
+        await slashCommand.execute(inter,Discord,bot);
       }catch(err){
         await inter.reply({content:"好像哪裡有問題...",ephemeral:true})
         console.error(err)

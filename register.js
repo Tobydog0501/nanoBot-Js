@@ -1,7 +1,9 @@
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const path = "./token.json"
 const token = process.env.tkn
+const TOKEN = fs.existsSync(path)?require(path).tkn:process.env.tkn
 
 const commands = [];
 
@@ -12,7 +14,7 @@ const guildId = '926089413933539359';
 
 module.exports = async ()=>{
   const SlashcommandFiles = fs.readdirSync('./slashCommands').filter(file => file.endsWith('.js'));
-  const rest = new REST({ version: '9' }).setToken(token);
+  const rest = new REST({ version: '9' }).setToken(TOKEN);
 
   (async () => {
     for (const file of SlashcommandFiles) {
@@ -30,7 +32,7 @@ module.exports = async ()=>{
       console.log('Successfully reloaded application (/) commands.');
       return('Successfully reloaded application (/) commands.');
     } catch (error) {
-      
+      console.error(error)
       return(`Unsuccessful. Reason:${error}`);
     }
   })();
