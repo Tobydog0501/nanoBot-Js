@@ -7,7 +7,7 @@ const commands = [];
 
 
 // Place your client and guild ids here
-const clientId = '926255596129382430';
+const clientId = '991152087054426132';
 const guildId = '926089413933539359';
 
 module.exports = async ()=>{
