@@ -5,14 +5,14 @@ const path = "./token.json"
 const token = process.env.tkn
 const TOKEN = fs.existsSync(path)?require(path).tkn:process.env.tkn
 
-const commands = [];
+var commands = [];
 
 
 // Place your client and guild ids here
 const clientId = token?'991152087054426132':'991301253269291078';
 const guildId = '926089413933539359';
 
-module.exports = async ()=>{
+module.exports = async (reset)=>{
   const SlashcommandFiles = fs.readdirSync('./slashCommands').filter(file => file.endsWith('.js'));
   const rest = new REST({ version: '9' }).setToken(TOKEN);
 
@@ -21,6 +21,7 @@ module.exports = async ()=>{
     const command = require(`./slashCommands/${file}`);
     commands.push(command.data.toJSON());
     }
+    if(reset) commands = [];
     try {
       console.log('Started refreshing application (/) commands.');
 

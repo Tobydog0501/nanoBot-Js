@@ -7,7 +7,14 @@ module.exports = {
         return;
     },
 
-    adminExpSet(bot,userId,msg,Discord){
+    adminExpSet(bot,userId,msg,Discord){    //give exp
+
         return;
-    }
+    },
+
+    task(bot,msg,Discord){
+        return;
+    },
+
+    
 }
