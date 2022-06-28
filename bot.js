@@ -6,9 +6,9 @@ var ui = require('./env.json');
 const discordModals = require('discord-modals');
 const { Modal, TextInputComponent, showModal } = discordModals;
 const token = process.env.tkn
-try{
-	const TOKEN = require("./token.json")
-}catch{}
+const path = "./token.json"
+const TOKEN = fs.existsSync(path)?require(path):undefined
+
 const bot = new Client({
     intents: [
         Intents.FLAGS.DIRECT_MESSAGES,

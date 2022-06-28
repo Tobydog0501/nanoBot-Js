@@ -3,7 +3,7 @@ module.exports = {
     description:"測試用啦",
     category:"test",
     async execute(bot,msg,args,Discord){
-      return;
+
       let menu = new Discord.MessageActionRow()
         .setComponents([
             new Discord.MessageSelectMenu()
