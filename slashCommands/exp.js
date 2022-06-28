@@ -1,5 +1,7 @@
 const { ContextMenuCommandBuilder } = require('@discordjs/builders');
+const discordModals = require('discord-modals');
 const { Modal, TextInputComponent, showModal } = discordModals;
+
 module.exports = {
     data:new ContextMenuCommandBuilder()
 	.setName('設置經驗值')
