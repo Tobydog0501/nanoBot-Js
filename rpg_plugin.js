@@ -5,5 +5,9 @@ module.exports = {
 
     exp(bot,msg,Discord){   //get exp
         return;
+    },
+
+    adminExpSet(bot,userId,msg,Discord){
+        return;
     }
 }
