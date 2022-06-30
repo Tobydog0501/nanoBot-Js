@@ -2,8 +2,6 @@ const prefix = "n/";
 
 
 module.exports = async (Discord,bot,msg)=>{
-  console.log(msg.cleanContent)
-  console.log(msg.cleanContent.length)
   if(msg.author.bot){
     return
   }
