@@ -1,3 +1,5 @@
+const { exp } = require("../../rpg_plugin");
+
 const prefix = "n/";
 
 
@@ -32,6 +34,9 @@ module.exports = async (Discord,bot,msg)=>{
         await action(Discord,bot,msg)
       }
     }
+  }else{
+    await exp(msg,msg.author.id,Discord)
+      .then(a=>console.log(a));
   }
 }
 

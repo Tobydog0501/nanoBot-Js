@@ -19,9 +19,9 @@ module.exports = {
         return ui[userId];
     },
 
-    async exp(msg,Discord){   //earn exp
+    async exp(msg,userId,Discord){   //earn exp    //return Promise
         var totalExp = 0;
-        await this.inital(userId);
+        this.inital(userId);
         await this.checkAttachments(msg)
             .then(att=>{
                 att.forEach((v,k)=>{
@@ -50,15 +50,30 @@ module.exports = {
             }
             ui[msg.author.id][lastMsg] = d.getMilliseconds();
         }
-        ui[msg.author.id][exp] += totalExp;        
-        return new Promise(res=>{
-            res();  //should return value if level up
+        ui[msg.author.id][exp] += totalExp;
+        return new Promise(async res=>{
+            await this.checkLevelUp(msg.author.id)
+                .then(val=>{
+                    res(val);  //should return value if level up
+                });
         });
     },
 
-    async adminExpSet(bot,userId,msg,Discord){    //give exp
-        
-        return;
+    async adminExpSet(bot,userId,exp,Discord){    //give exp
+        await this.inital(userId);
+        if(exp.includes('+')){
+            ui[userId]['exp'] += parseInt(exp.replace('+',''));
+        }else if(exp.includes('-')){
+            ui[userId]['exp'] -= parseInt(exp.replace('-',''));
+        }else {
+            ui[userId]['exp'] = parseInt(exp);
+        }
+        await this.checkLevelUp(userId)
+            .then(fin=>{
+                return new Promise(res=>{
+                    res(`已修改完成`)
+                })
+            })
     },
 
     async getTask(bot,msg,Discord){  //random task
@@ -69,7 +84,7 @@ module.exports = {
         return;
     },
 
-    async checkAttachments(msg){
+    async checkAttachments(msg){    //return Promise
         return new Promise((res,rej)=>{
             res(msg.attachments.map((v,k)=>{
                 if(v!==undefined){
@@ -89,7 +104,7 @@ module.exports = {
         else return false;
     },
 
-    async checkEmoji(ctn){
+    async checkEmoji(ctn){  //return Promise
         var emojis = 0;
         while(ctn.includes('<:')){    //len = 18
             if(ctn.indexOf(':',ctn.indexOf(':'))-ctn.indexOf('>')===18){
@@ -103,8 +118,27 @@ module.exports = {
 
     },
 
-    async checkLevelUp(userId){
-        return;
+    async checkLevelUp(userId){ //return Promise
+        var levelExpRequire = [80,150,250];
+        var check = false;
+        if(!levelExpRequire[ui[userId]['lv']]){
+            //upper than level 3
+            var need = (ui[userId]['lv']+1)*100;
+        }else var need = levelExpRequire[ui[userId]['lv']];
+        while(ui[userId]['exp'] >= need){
+            check = true;
+            ui[userId]['exp'] -= need;
+            ui[userId]['lv'] += 1;
+            if(!levelExpRequire[ui[userId]['lv']]){
+                //upper than level 3
+                need = (ui[userId]['lv']+1)*100;
+            }else need = levelExpRequire[ui[userId]['lv']];
+        }
+        await write(ui);
+        return new Promise(res=>{
+            if(check) res({'lv':ui[userId]['lv'],'exp':ui[userId]['exp']});
+            else res(undefined);
+        });
     },
 
     tasksLists:[]
@@ -119,7 +153,7 @@ async function write(w){
                 reject(`Error: ${err}`)
               }else{
                 resolve('finished')
-              } 
+            } 
             
         })
        
