@@ -147,6 +147,7 @@ module.exports = {
     },
 
     async checkLevelUp(userId){ //return Promise
+        ui[userId]['exp'] = ui[userId]['totalExp']
         var levelExpRequire = [80,150,250];
         var check = false;
         if(levelExpRequire[ui[userId]['lv']]===undefined){
