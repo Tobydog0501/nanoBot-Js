@@ -56,7 +56,6 @@ module.exports = {
                 }
             })});
         var time = new Date(ui[userId]['lastMsg'][0],ui[userId]['lastMsg'][1],ui[userId]['lastMsg'][2],ui[userId]['lastMsg'][3],ui[userId]['lastMsg'][4],ui[userId]['lastMsg'][5])
-        var URLS = false;
         if(Date.now()-time>=10*1000){   //msg exp (1:1)
             await module.exports.checkURL(msg)
                 .then(async url=>{
