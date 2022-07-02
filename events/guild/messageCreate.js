@@ -13,6 +13,7 @@ module.exports = async (Discord,bot,msg)=>{
     
     const command = bot.commands.get(cmd);
     if(command) command.execute(bot,msg,args,Discord);
+    return;
   }
   var msgCtn = msg.content.replace(" ","");
   if(msgCtn.replace("cl","d").includes('discord')&&msgCtn.includes('http')&&msgCtn.includes('discord.gg')&&!msg.member.permissions.has('MANAGE_ROLES')){
