@@ -60,20 +60,18 @@ module.exports = {
         if(Date.now()-time>=10*1000){   //msg exp (1:1)
             await module.exports.checkURL(msg)
                 .then(url=>{
-                    URLS = url
+                    if(url){
+                        totalExp += 10;
+                    }else{  //only msg
+                        //clean emoji
+                        var ctn = msg.cleanContent;
+                        await module.exports.checkEmoji(ctn)
+                            .then(nCtn=>{
+                                totalExp += nCtn['content'].length>20?20:nCtn['content'].length;
+                        });   
+                    }
                 })
-            if(URLS){   //url
-                console.log('url')
-                totalExp += 10;
-            }else{  //only msg
-                //clean emoji
-                var ctn = msg.cleanContent;
-                await module.exports.checkEmoji(ctn)
-                    .then(nCtn=>{
-                        totalExp += nCtn['content'].length>20?20:nCtn['content'].length;
-                    });
-                
-            }
+
             const d = new Date();
             ui[msg.author.id]['lastMsg'] = [d.getFullYear(),d.getMonth(),d.getDate(),d.getHours(),d.getMinutes(),d.getSeconds()];
         }
