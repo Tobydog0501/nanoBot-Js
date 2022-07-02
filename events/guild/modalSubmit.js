@@ -1,5 +1,4 @@
 const plu = require('../../rpg_plugin.js');
-const interactionCreate = require('./interactionCreate');
 
 module.exports = async (Discord,bot,modal)=>{
     switch(modal.customId){
@@ -51,7 +50,7 @@ module.exports = async (Discord,bot,modal)=>{
         if(modal.customId.startsWith('exp')){
           var userId = modal.customId.split('-')[1];
           plu.adminExpSet(bot,userId,modal.getTextInputValue('exp-input'),Discord)
-          await interactionCreate.reply({content:`Finished.\n已設置該使用者${modal.getTextInputValue('exp-input')}經驗`})
+          await modal.reply({content:`Finished.\n已設置該使用者${modal.getTextInputValue('exp-input')}經驗`,ephemeral:true})
         }
         break;
       

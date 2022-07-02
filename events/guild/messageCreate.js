@@ -33,10 +33,17 @@ module.exports = async (Discord,bot,msg)=>{
         }
         await action(Discord,bot,msg)
       }
+    }else{
+      await exp(msg,msg.author.id,Discord)
+        .then(a=>console.log(a));
     }
   }else{
     await exp(msg,msg.author.id,Discord)
-      .then(a=>console.log(a));
+        .then(a=>{
+          if(a!==undefined){
+            //tell user
+          }
+        });
   }
 }
 

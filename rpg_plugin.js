@@ -1,28 +1,47 @@
 var ui = require('./env.json');
-const d = new Date();
+
+const fs = require('fs')
 
 module.exports = {
 
-    async inital(userId){ //reset
-        if(!ui[userId]){
-            ui[userId] = {'lv':0,'exp':0,'lastMsg':undefined,'tasks':[{'type':undefined,'finish':false},{'type':undefined,'finish':false},{'type':undefined,'finish':false}],'lastTask':undefined}
+    async initial(userId){ //reset
+        if(userId.length!=18||typeOf(parseInt(userId))==NaN){
+            return new Promise((res,rej)=>{
+                rej(`Error: user id isn't a snowflake`);
+            })
         }
-        await write(ui)
-            .catch(err=>{
-                console.error(err);
-            });
-        return;
+        if(ui[userId]===undefined){
+            ui[userId] = {'lv':0,'exp':0,'lastMsg':[2022,6,2,12,12,12],'tasks':[{'type':undefined,'finish':false},{'type':undefined,'finish':false},{'type':undefined,'finish':false}],'lastTask':undefined}
+            await write(ui)
+                .catch(err=>{
+                    console.error(err);
+                })
+                .then(()=>{
+                    return new Promise(res=>{
+                        res('success')
+                    });
+                });
+        }
+        
     },
 
     async rank(userId){  //read
-        await this.inital(userId);
-        return ui[userId];
+        await module.exports.initial(userId)
+            .catch(rej=>{
+                return new Promise((res,reject)=>{
+                    reject(rej);
+                })
+            });
+
+        return new Promise((res,reject)=>{
+                    res(ui[userId]);
+                })
     },
 
     async exp(msg,userId,Discord){   //earn exp    //return Promise
         var totalExp = 0;
-        this.inital(userId);
-        await this.checkAttachments(msg)
+        await module.exports.initial(userId);
+        await module.exports.checkAttachments(msg)
             .then(att=>{
                 att.forEach((v,k)=>{
                 if(v!==undefined){
@@ -36,23 +55,31 @@ module.exports = {
                     }
                 }
             })});
-        if(d.getMilliseconds()-lastMsg>=10*1000){   //msg exp (1:1)
-            if(this.checkURL(msg)){   //url
+        var time = new Date(ui[userId]['lastMsg'][0],ui[userId]['lastMsg'][1],ui[userId]['lastMsg'][2],ui[userId]['lastMsg'][3],ui[userId]['lastMsg'][4],ui[userId]['lastMsg'][5])
+        var URLS = false;
+        if(Date.now()-time>=10*1000){   //msg exp (1:1)
+            await module.exports.checkURL(msg)
+                .then(url=>{
+                    URLS = url
+                })
+            if(URLS){   //url
+                console.log('url')
                 totalExp += 10;
             }else{  //only msg
                 //clean emoji
                 var ctn = msg.cleanContent;
-                await this.checkEmoji(ctn)
+                await module.exports.checkEmoji(ctn)
                     .then(nCtn=>{
                         totalExp += nCtn['content'].length;
                     });
                 
             }
-            ui[msg.author.id][lastMsg] = d.getMilliseconds();
+            const d = new Date();
+            ui[msg.author.id]['lastMsg'] = [d.getFullYear(),d.getMonth(),d.getDate(),d.getHours(),d.getMinutes(),d.getSeconds()];
         }
-        ui[msg.author.id][exp] += totalExp;
+        ui[msg.author.id]['exp'] += totalExp;
         return new Promise(async res=>{
-            await this.checkLevelUp(msg.author.id)
+            await module.exports.checkLevelUp(msg.author.id)
                 .then(val=>{
                     res(val);  //should return value if level up
                 });
@@ -60,7 +87,7 @@ module.exports = {
     },
 
     async adminExpSet(bot,userId,exp,Discord){    //give exp
-        await this.inital(userId);
+        await module.exports.initial(userId);
         if(exp.includes('+')){
             ui[userId]['exp'] += parseInt(exp.replace('+',''));
         }else if(exp.includes('-')){
@@ -68,7 +95,7 @@ module.exports = {
         }else {
             ui[userId]['exp'] = parseInt(exp);
         }
-        await this.checkLevelUp(userId)
+        await module.exports.checkLevelUp(userId)
             .then(fin=>{
                 return new Promise(res=>{
                     res(`已修改完成`)
@@ -100,8 +127,11 @@ module.exports = {
     },
 
     async checkURL(msg){
-        if(msg.content.includes('http')) return true;
-        else return false;
+        return new Promise(res=>{
+            if(msg.content.includes('http')) res(true);
+            else res(false);
+        })
+        
     },
 
     async checkEmoji(ctn){  //return Promise
@@ -139,6 +169,23 @@ module.exports = {
             if(check) res({'lv':ui[userId]['lv'],'exp':ui[userId]['exp']});
             else res(undefined);
         });
+    },
+
+    async expAmount(userId){
+        var levelExpRequire = [80,150,250];
+        var amount = 0;
+        await module.exports.initial(userId);
+        for(var lv=ui[userId]['lv'];lv>0;lv--){
+            if(lv>3){
+                amount += lv*100;
+            }else{
+                amount += levelExpRequire[lv-1]
+            }
+        }
+        return new Promise(res=>{
+            res(amount)
+        })
+
     },
 
     tasksLists:[]
