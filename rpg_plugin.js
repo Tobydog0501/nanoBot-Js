@@ -11,7 +11,7 @@ module.exports = {
             })
         }
         if(ui[userId]===undefined){
-            ui[userId] = {'lv':0,'exp':0,'lastMsg':[2022,6,2,12,12,12],'tasks':[{'type':undefined,'finish':false},{'type':undefined,'finish':false},{'type':undefined,'finish':false}],'lastTask':undefined}
+            ui[userId] = {'lv':0,'exp':0,'totalExp':0,'lastMsg':[2022,6,2,12,12,12],'tasks':[{'type':undefined,'finish':false},{'type':undefined,'finish':false},{'type':undefined,'finish':false}],'lastTask':undefined}
             await write(ui)
                 .catch(err=>{
                     console.error(err);
@@ -75,6 +75,7 @@ module.exports = {
             ui[msg.author.id]['lastMsg'] = [d.getFullYear(),d.getMonth(),d.getDate(),d.getHours(),d.getMinutes(),d.getSeconds()];
         }
         ui[msg.author.id]['exp'] += totalExp;
+        ui[userId]['totalExp'] += totalExp;
         return new Promise(async res=>{
             await module.exports.checkLevelUp(msg.author.id)
                 .then(val=>{
@@ -86,11 +87,11 @@ module.exports = {
     async adminExpSet(bot,userId,exp,Discord){    //give exp
         await module.exports.initial(userId);
         if(exp.includes('+')){
-            ui[userId]['exp'] += parseInt(exp.replace('+',''));
+            ui[userId]['totalExp'] += parseInt(exp.replace('+',''));
         }else if(exp.includes('-')){
-            ui[userId]['exp'] -= parseInt(exp.replace('-',''));
+            ui[userId]['totalExp'] -= parseInt(exp.replace('-',''));
         }else {
-            ui[userId]['exp'] = parseInt(exp);
+            ui[userId]['totalExp'] = parseInt(exp);
         }
         await module.exports.checkLevelUp(userId)
             .then(fin=>{
@@ -148,18 +149,33 @@ module.exports = {
     async checkLevelUp(userId){ //return Promise
         var levelExpRequire = [80,150,250];
         var check = false;
-        if(!levelExpRequire[ui[userId]['lv']]){
+        if(levelExpRequire[ui[userId]['lv']]===undefined){
             //upper than level 3
             var need = (ui[userId]['lv']+1)*100;
         }else var need = levelExpRequire[ui[userId]['lv']];
-        while(ui[userId]['exp'] >= need){
+        while(ui[userId]['exp'] >= need){   //looping until match
             check = true;
             ui[userId]['exp'] -= need;
             ui[userId]['lv'] += 1;
-            if(!levelExpRequire[ui[userId]['lv']]){
+            if(levelExpRequire[ui[userId]['lv']]===undefined){
                 //upper than level 3
                 need = (ui[userId]['lv']+1)*100;
             }else need = levelExpRequire[ui[userId]['lv']];
+        }
+        if(ui[userId]['lv']!=0){
+            if(levelExpRequire[ui[userId]['lv']-1]===undefined){
+                //upper than level 3
+                var lower = ui[userId]['lv']*100;
+            }else var lower = levelExpRequire[ui[userId]['lv']-1];
+            while(ui[userId]['totalExp']<lower){
+                check = true;
+                ui[userId]['totalExp'] -= lower;
+                ui[userId]['lv'] -= 1;
+                if(levelExpRequire[ui[userId]['lv']-1]===undefined){
+                    //upper than level 3
+                    var lower = ui[userId]['lv']*100;
+                }else var lower = levelExpRequire[ui[userId]['lv']-1];
+            }
         }
         await write(ui);
         return new Promise(res=>{
@@ -180,6 +196,7 @@ module.exports = {
             }
         }
         amount += ui[userId]['exp'];
+        ui[userId]['totalExp'] = amount;
         return new Promise(res=>{
             res(amount)
         })

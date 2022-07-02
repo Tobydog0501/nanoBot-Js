@@ -14,7 +14,7 @@ module.exports = {
                     .then(async ui=>{
                         await plu.expAmount(userId)
                             .then(async expAmounts=>{
-                                msg.guild.members.fetch(userId)
+                                await msg.guild.members.fetch(userId)
                                     .then(async user=>{
                                         let embed = new Discord.MessageEmbed()
                                             .setTitle('等級查詢')
