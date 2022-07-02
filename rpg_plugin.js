@@ -5,7 +5,7 @@ const fs = require('fs')
 module.exports = {
 
     async initial(userId){ //reset
-        if(userId.length!=18||typeOf(parseInt(userId))==NaN){
+        if(userId.length!=18||typeof(parseInt(userId))==NaN){
             return new Promise((res,rej)=>{
                 rej(`Error: user id isn't a snowflake`);
             })
@@ -70,7 +70,7 @@ module.exports = {
                 var ctn = msg.cleanContent;
                 await module.exports.checkEmoji(ctn)
                     .then(nCtn=>{
-                        totalExp += nCtn['content'].length;
+                        totalExp += nCtn['content'].length>20?20:nCtn['content'].length;
                     });
                 
             }
@@ -182,6 +182,7 @@ module.exports = {
                 amount += levelExpRequire[lv-1]
             }
         }
+        amount += ui[userId]['exp'];
         return new Promise(res=>{
             res(amount)
         })
