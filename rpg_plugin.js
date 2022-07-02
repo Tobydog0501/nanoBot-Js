@@ -59,7 +59,7 @@ module.exports = {
         var URLS = false;
         if(Date.now()-time>=10*1000){   //msg exp (1:1)
             await module.exports.checkURL(msg)
-                .then(url=>{
+                .then(async url=>{
                     if(url){
                         totalExp += 10;
                     }else{  //only msg
