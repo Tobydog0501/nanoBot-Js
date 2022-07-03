@@ -213,6 +213,37 @@ module.exports = {
 
     },
 
+    async tops(page,user){
+        var list = []
+        for(var i in ui){
+            list.push({'userId':i,'rank':ui[i]})
+        }
+        list.sort((a,b)=>{
+            if(b['rank']['lv']-a['rank']['lv']!=0)
+                return b['rank']['lv']-a['rank']['lv'];
+            else return b['rank']['exp']-a['rank']['exp'];
+        })
+        var list2 = []
+        for(var i of list){
+            list2.push(i['userId'])
+        }
+        return new Promise((res,rej)=>{
+            if(page){
+                var returnList = list.find((v,i)=>{
+                    return (i+1) <= page*10;
+                })
+                res(returnList);
+            }else{
+                var rank = list2.indexOf(user)+1
+                if(rank==-1){
+                    rej(`未查到此玩家`)
+                }else{
+                    res(rank)
+                }
+            }
+        })
+    },
+
     tasksLists:[]
 
 }

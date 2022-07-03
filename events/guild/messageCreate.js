@@ -36,7 +36,11 @@ module.exports = async (Discord,bot,msg)=>{
       }
     }else{
       await exp(msg,msg.author.id,Discord)
-        .then(a=>console.log(a));
+        .then(a=>{
+          if(a!==undefined){
+            //tell user
+          }
+        }); //upgrade mention
     }
   }else{
     await exp(msg,msg.author.id,Discord)
