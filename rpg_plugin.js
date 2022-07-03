@@ -85,15 +85,18 @@ module.exports = {
     },
 
     async adminExpSet(bot,userId,exp,Discord){    //give exp
+        var set = false;
         await module.exports.initial(userId);
         if(exp.includes('+')){
-            ui[userId]['totalExp'] += parseInt(exp.replace('+',''));
+            ui[userId]['exp'] += parseInt(exp.replace('+',''));
         }else if(exp.includes('-')){
-            ui[userId]['totalExp'] -= parseInt(exp.replace('-',''));
+            ui[userId]['exp'] -= parseInt(exp.replace('-',''));
         }else {
+            ui[userId]['exp'] = parseInt(exp);
             ui[userId]['totalExp'] = parseInt(exp);
+            set = true;
         }
-        await module.exports.checkLevelUp(userId)
+        await module.exports.checkLevelUp(userId,set)
             .then(fin=>{
                 return new Promise(res=>{
                     res(`已修改完成`)
@@ -146,37 +149,43 @@ module.exports = {
 
     },
 
-    async checkLevelUp(userId){ //return Promise
-        ui[userId]['exp'] = ui[userId]['totalExp']
+    async checkLevelUp(userId,set){ //return Promise
         var levelExpRequire = [80,150,250];
-        var check = false;
+        var check = false,check2 = false;
+        if(set){    //if mode is set, not plus or minus
+            ui[userId]['lv'] = 0;
+        }
         if(levelExpRequire[ui[userId]['lv']]===undefined){
-            //upper than level 3
+            //upper than level 2
             var need = (ui[userId]['lv']+1)*100;
         }else var need = levelExpRequire[ui[userId]['lv']];
+        //plus
         while(ui[userId]['exp'] >= need){   //looping until match
             check = true;
             ui[userId]['exp'] -= need;
             ui[userId]['lv'] += 1;
             if(levelExpRequire[ui[userId]['lv']]===undefined){
-                //upper than level 3
+                //upper than level 2
                 need = (ui[userId]['lv']+1)*100;
             }else need = levelExpRequire[ui[userId]['lv']];
         }
-        if(ui[userId]['lv']!=0){
+        //minus
+        if(levelExpRequire[ui[userId]['lv']-1]===undefined){
+            //upper than level 3
+            var lower = (ui[userId]['lv'])*100;
+        }else var lower = levelExpRequire[ui[userId]['lv']-1];
+
+        while(ui[userId]['exp']<0){
+            check2 =true;
+            ui[userId]['exp'] += lower;
+            ui[userId]['lv'] -= 1;
             if(levelExpRequire[ui[userId]['lv']-1]===undefined){
                 //upper than level 3
-                var lower = ui[userId]['lv']*100;
-            }else var lower = levelExpRequire[ui[userId]['lv']-1];
-            while(ui[userId]['totalExp']<lower){
-                check = true;
-                ui[userId]['totalExp'] -= lower;
-                ui[userId]['lv'] -= 1;
-                if(levelExpRequire[ui[userId]['lv']-1]===undefined){
-                    //upper than level 3
-                    var lower = ui[userId]['lv']*100;
-                }else var lower = levelExpRequire[ui[userId]['lv']-1];
-            }
+                lower = (ui[userId]['lv'])*100;
+            }else lower = levelExpRequire[ui[userId]['lv']-1];
+        }
+        if(check2){
+            ui[userId]['totalExp'] = await module.exports.expAmount(userId);
         }
         await write(ui);
         return new Promise(res=>{

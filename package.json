@@ -9,7 +9,7 @@
   },
   "name": "discord-bot-js-example",
   "description": "https://discord.js.org/#/docs/main/stable/general/welcome\r https://nodejs.org/en/download/",
-  "version": "1.0.0",
+  "version": "Beta 0.4.8",
   "main": "bot.js",
   "scripts": {
     "start": "node ./bot.js",
