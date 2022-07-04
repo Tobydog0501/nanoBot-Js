@@ -87,6 +87,7 @@ module.exports = {
     async adminExpSet(bot,userId,exp,Discord){    //give exp
         var set = false;
         await module.exports.initial(userId);
+        var before = await module.exports.rank(userId);
         if(exp.includes('+')){
             ui[userId]['exp'] += parseInt(exp.replace('+',''));
         }else if(exp.includes('-')){
@@ -97,9 +98,10 @@ module.exports = {
             set = true;
         }
         await module.exports.checkLevelUp(userId,set)
-            .then(fin=>{
-                return new Promise(res=>{
-                    res(`已修改完成`)
+            .then(async fin=>{
+                return new Promise(async res=>{
+                    let after = await module.exports.rank(userId);
+                    res({'before':before,'after':after});
                 })
             })
     },
@@ -219,26 +221,24 @@ module.exports = {
             list.push({'userId':i,'rank':ui[i]})
         }
         list.sort((a,b)=>{
-            if(b['rank']['lv']-a['rank']['lv']!=0)
-                return b['rank']['lv']-a['rank']['lv'];
-            else return b['rank']['exp']-a['rank']['exp'];
+            return b['rank']['totalExp']-a['rank']['totalExp'];
         })
         var list2 = []
         for(var i of list){
             list2.push(i['userId'])
         }
         return new Promise((res,rej)=>{
-            if(page){
+            if(page!==undefined){
                 var returnList = list.find((v,i)=>{
                     return (i+1) <= page*10;
                 })
                 res(returnList);
             }else{
-                var rank = list2.indexOf(user)+1
+                var rank = list2.indexOf(user)+1;
                 if(rank==-1){
-                    rej(`未查到此玩家`)
+                    rej(`未查到此玩家`);
                 }else{
-                    res(rank)
+                    res(rank);
                 }
             }
         })

@@ -22,7 +22,11 @@ module.exports = {
                                             .setDescription(`目前等級：${ui['lv']}\n經驗值：${ui['exp']}\n總經驗值：${expAmounts}`)   //可能要用%
                                             .setThumbnail(ava) //被搜尋者頭像
                                             .setColor('RANDOM')
-                                        await Emsg.edit({embeds:[embed]})
+                                        await Emsg.edit({content:'獲取資料成功!',embeds:[embed]});
+                                    })
+                                    .catch(async err=>{
+                                        console.warn(err);
+                                        await Emsg.edit({content:'Unable to find user'});
                                     })
                                 
                             })

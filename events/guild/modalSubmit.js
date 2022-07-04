@@ -50,7 +50,19 @@ module.exports = async (Discord,bot,modal)=>{
         if(modal.customId.startsWith('exp')){
           await modal.deferReply({ephemeral:true})
           var userId = modal.customId.split('-')[1];
-          await plu.adminExpSet(bot,userId,modal.getTextInputValue('exp-input'),Discord)
+          var ret = await plu.adminExpSet(bot,userId,modal.getTextInputValue('exp-input'),Discord)
+          await modal.guild.channels.fetch('993330070301180014')
+            .then(async chn=>{
+              let ebd = new Discord.MessageEmbed()
+                .setTitle('經驗值設置')
+                .setDescription(`${modal.member}變更了<@${modal.getTextInputValue('exp-input')}>的經驗值`)
+                .setFields([
+                  {name:'更動前',value:`等級：${ret['before']['lv']}\n經驗：${ret['before']['exp']}`},
+                  {name:'更動後',value:`等級：${ret['after']['lv']}\n經驗：${ret['after']['exp']}`,inline:true}
+                ])
+                .setFooter({iconURL:modal.user.avatarURL(),text:`Changes commit by ${modal.member}`})
+              await chn.send({embeds:[ebd]})
+            })
           await modal.editReply({content:`Finished.\n已設置該使用者${modal.getTextInputValue('exp-input')}經驗`,ephemeral:true})
         }
         break;
