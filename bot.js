@@ -2,7 +2,6 @@ const { Client, Intents } = require('discord.js');
 const Discord = require('discord.js');
 const fs = require('fs');
 const fetch = require('node-fetch');
-var ui = require('./env.json');
 const discordModals = require('discord-modals');
 const { Modal, TextInputComponent, showModal } = discordModals;
 const path = "./token.json"
