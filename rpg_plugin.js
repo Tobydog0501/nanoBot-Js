@@ -86,8 +86,7 @@ module.exports = {
 
     async adminExpSet(bot,userId,exp,Discord){    //give exp
         var set = false;
-        await module.exports.initial(userId);
-        var before = await module.exports.rank(userId);
+        var before = {'lv': ui[userId]['lv'],'exp':ui[userId]['exp'],'totalExp':ui[userId]['totalExp']};
         if(exp.includes('+')){
             ui[userId]['exp'] += parseInt(exp.replace('+',''));
         }else if(exp.includes('-')){
@@ -98,12 +97,10 @@ module.exports = {
             set = true;
         }
         await module.exports.checkLevelUp(userId,set)
-            .then(async fin=>{
-                return new Promise(async res=>{
-                    let after = await module.exports.rank(userId);
-                    res({'before':before,'after':after});
-                })
-            })
+        var after = await module.exports.rank(userId);
+        return new Promise(async res=>{
+            res({'before':before,'after':after});
+        })
     },
 
     async getTask(bot,msg,Discord){  //random task

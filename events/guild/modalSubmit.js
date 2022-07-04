@@ -55,12 +55,13 @@ module.exports = async (Discord,bot,modal)=>{
             .then(async chn=>{
               let ebd = new Discord.MessageEmbed()
                 .setTitle('經驗值設置')
-                .setDescription(`${modal.member}變更了<@${modal.getTextInputValue('exp-input')}>的經驗值`)
+                .setDescription(`${modal.member}變更了<@${userId}>的經驗值`)
                 .setFields([
-                  {name:'更動前',value:`等級：${ret['before']['lv']}\n經驗：${ret['before']['exp']}`},
-                  {name:'更動後',value:`等級：${ret['after']['lv']}\n經驗：${ret['after']['exp']}`,inline:true}
+                  {name:'更動前',value:`等級：${ret['before']['lv']}\n經驗：${ret['before']['exp']}\n總經驗值${ret['before']['totalExp']}`},
+                  {name:'更動後',value:`等級：${ret['after']['lv']}\n經驗：${ret['after']['exp']}\n總經驗值${ret['after']['totalExp']}`,inline:true}
                 ])
-                .setFooter({iconURL:modal.user.avatarURL(),text:`Changes commit by ${modal.member}`})
+                .setFooter({iconURL:modal.user.avatarURL(),text:`Changes commit by ${modal.user.tag}`})
+                .setColor('RANDOM')
               await chn.send({embeds:[ebd]})
             })
           await modal.editReply({content:`Finished.\n已設置該使用者${modal.getTextInputValue('exp-input')}經驗`,ephemeral:true})
