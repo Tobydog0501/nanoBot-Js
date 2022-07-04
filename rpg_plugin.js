@@ -86,6 +86,7 @@ module.exports = {
 
     async adminExpSet(bot,userId,exp,Discord){    //give exp
         var set = false;
+        await module.exports.initial(userId)
         var before = {'lv': ui[userId]['lv'],'exp':ui[userId]['exp'],'totalExp':ui[userId]['totalExp']};
         if(exp.includes('+')){
             ui[userId]['exp'] += parseInt(exp.replace('+',''));
