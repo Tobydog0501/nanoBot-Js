@@ -1,6 +1,7 @@
 const { exp } = require("../../rpg_plugin");
-
-const prefix = "n/";
+const fs = require('fs')
+const path = "./token.json"
+const prefix = fs.existsSync(path)?"m/":"n/"
 
 
 module.exports = async (Discord,bot,msg)=>{
@@ -36,19 +37,25 @@ module.exports = async (Discord,bot,msg)=>{
       }
     }else{
       await exp(msg,msg.author.id,Discord)
-        .then(a=>{
+        .then(async a=>{
           if(a!==undefined){
-            //tell user
+            await msg.guild.channels.fetch('926251048266530816')
+              .then(async chn=>{
+                await chn.send(`<@${msg.author.id}>，恭喜~你的彈藥量增加到了**${a['lv']}公升**\n多多訓練吧~\n放心，距離||~~流出來啦!!!~~||還遠得呢~💓`)
+              })
           }
         }); //upgrade mention
     }
   }else{
     await exp(msg,msg.author.id,Discord)
-        .then(a=>{
+        .then(async a=>{
           if(a!==undefined){
-            //tell user
+            await msg.guild.channels.fetch('926251048266530816')
+              .then(async chn=>{
+                await chn.send(`<@${msg.author.id}>，恭喜~你的彈藥量增加到了**${a['lv']}公升**\n多多訓練吧~\n放心，距離||~~流出來啦!!!~~||還遠得呢~💓`)
+              })
           }
-        });
+        }); //upgrade mention
   }
 }
 

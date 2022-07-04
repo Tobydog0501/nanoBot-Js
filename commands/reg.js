@@ -6,7 +6,8 @@ module.exports = {
   async execute(bot,msg,args){
     await msg.channel.send('Reloading slash command...')
     const a = require('../register.js')
-    var ret = await a(args!=[]?true:false);
+    console.log(args.length==0)
+    var ret = await a(args.length!=0?true:false);
     await msg.channel.send('Slash command reload successful!')
   }
 }

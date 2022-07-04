@@ -90,10 +90,11 @@ module.exports = {
         var before = {'lv': ui[userId]['lv'],'exp':ui[userId]['exp'],'totalExp':ui[userId]['totalExp']};
         if(exp.includes('+')){
             ui[userId]['exp'] += parseInt(exp.replace('+',''));
+            ui[userId]['totalExp'] += parseInt(exp);
         }else if(exp.includes('-')){
             ui[userId]['exp'] -= parseInt(exp.replace('-',''));
+            ui[userId]['totalExp'] -= parseInt(exp.replace('-',''));
         }else {
-            ui[userId]['exp'] = parseInt(exp);
             ui[userId]['totalExp'] = parseInt(exp);
             set = true;
         }
@@ -154,6 +155,7 @@ module.exports = {
         var check = false,check2 = false;
         if(set){    //if mode is set, not plus or minus
             ui[userId]['lv'] = 0;
+            ui[userId]['exp'] = ui[userId]['totalExp'];
         }
         if(levelExpRequire[ui[userId]['lv']]===undefined){
             //upper than level 2

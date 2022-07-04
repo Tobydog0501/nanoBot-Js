@@ -57,8 +57,8 @@ module.exports = async (Discord,bot,modal)=>{
                 .setTitle('經驗值設置')
                 .setDescription(`${modal.member}變更了<@${userId}>的經驗值`)
                 .setFields([
-                  {name:'更動前',value:`等級：${ret['before']['lv']}\n經驗：${ret['before']['exp']}\n總經驗值${ret['before']['totalExp']}`},
-                  {name:'更動後',value:`等級：${ret['after']['lv']}\n經驗：${ret['after']['exp']}\n總經驗值${ret['after']['totalExp']}`,inline:true}
+                  {name:'更動前',value:`等級：${ret['before']['lv']}\n經驗：${ret['before']['exp']}\n總經驗值：${ret['before']['totalExp']}`},
+                  {name:'更動後',value:`等級：${ret['after']['lv']}\n經驗：${ret['after']['exp']}\n總經驗值：${ret['after']['totalExp']}`,inline:true}
                 ])
                 .setFooter({iconURL:modal.user.avatarURL(),text:`Changes commit by ${modal.user.tag}`})
                 .setColor('RANDOM')
