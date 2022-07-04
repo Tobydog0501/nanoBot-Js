@@ -227,10 +227,13 @@ module.exports = {
         for(var i of list){
             list2.push(i['userId'])
         }
+        var returnList = []
         return new Promise((res,rej)=>{
-            if(page!==undefined){
-                var returnList = list.find((v,i)=>{
-                    return (i+1) <= page*10;
+            if(page!=null){
+                list.forEach((v,i)=>{
+                    if((i+1) <= page*10){
+                        returnList.push(v)
+                    }
                 })
                 res(returnList);
             }else{
