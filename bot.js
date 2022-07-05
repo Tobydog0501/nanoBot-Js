@@ -49,6 +49,6 @@ setInterval(async()=>{
     });
   }
 
-},10000)
+},60000)
  
 bot.login(TOKEN);

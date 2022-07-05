@@ -1,6 +1,26 @@
-var ui = require('../env.json');
+const fs = require('fs');
+(async ()=>{
+    try{
+        var ui = require('../env.json')
+    }catch{
+        fs.unlink("./env.json",err=>{
+            console.error(err)
+        })
+        let data = JSON.parse(fs.readFileSync('./backup.json', 'utf-8'))
+        var dictstring = JSON.stringify(data);
+        fs.writeFile("./env.json", dictstring,(err,res)=>{
+        if(err){
+            console.error(err)
+        }else
+            return new Promise(res=>{
+                res(require('../env.json'));
+            })
+        });
+    }
+})().then(usi=>{
+    var ui = usi;
+})
 
-const fs = require('fs')
 
 module.exports = {
 
