@@ -1,4 +1,4 @@
-const plu = require('../../rpg_plugin.js');
+const plu = require('../../plugins/rpg_plugin.js');
 
 module.exports = async (Discord,bot,modal)=>{
     switch(modal.customId){
@@ -50,7 +50,7 @@ module.exports = async (Discord,bot,modal)=>{
         if(modal.customId.startsWith('exp')){
           await modal.deferReply({ephemeral:true})
           var userId = modal.customId.split('-')[1];
-          var ret = await plu.adminExpSet(bot,userId,modal.getTextInputValue('exp-input'),Discord)
+          var ret = await plu.adminExpSet(userId,modal.getTextInputValue('exp-input'))
           await modal.guild.channels.fetch('993330070301180014')
             .then(async chn=>{
               let ebd = new Discord.MessageEmbed()

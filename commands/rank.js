@@ -1,4 +1,4 @@
-const plu = require('../rpg_plugin')
+const plu = require('../plugins/rpg_plugin');
 
 
 module.exports = {
