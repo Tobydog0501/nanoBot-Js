@@ -5,6 +5,7 @@ const fetch = require('node-fetch');
 const discordModals = require('discord-modals');
 const { Modal, TextInputComponent, showModal } = discordModals;
 const path = "./token.json"
+const fsPromise = require('fs/promises')
 const TOKEN = fs.existsSync(path)?require(path).tkn:process.env.tkn
 
 const bot = new Client({
@@ -17,37 +18,26 @@ const bot = new Client({
     ] 
 });
 discordModals(bot);
-var afkMsg = {}
+var afkMsg = {};
 
-
-let ui = (async ()=>{
+(async ()=>{
   try{
-      var ui = require('./env.json')
-      return new Promise(res=>{res(ui)})
+    let data = JSON.parse(fs.readFileSync('./env.json', 'utf-8'))
+    var dictstring = JSON.stringify(data);
   }catch{
-      fs.unlink("./env.json",err=>{
-          console.error(err)
-      })
       let data = JSON.parse(fs.readFileSync('./backup.json', 'utf-8'))
       var dictstring = JSON.stringify(data);
-      fs.writeFile("./env.json", dictstring,(err,res)=>{
-      if(err){
-          console.error(err)
-      }else
-          return new Promise(res=>{res(require('./backup.json'))})
-      });
-  }
-})().then(()=>{
-  setTimeout(()=>{
+  }finally{
+    await fsPromise.writeFile("./env.json", dictstring)
     bot.warns = new Discord.Collection()
-  bot.commands = new Discord.Collection();
-  bot.events = new Discord.Collection();
-  ['command_handler','event_handler'].forEach(handler=>{
+    bot.commands = new Discord.Collection();
+    bot.events = new Discord.Collection();
+    ['command_handler','event_handler'].forEach(handler=>{
     require(`./handlers/${handler}`)(bot,Discord);
-  })
-  
-  },500)
-});
+    })
+    console.log('backup reload successful!')
+  }
+})();
 
 
 
