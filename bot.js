@@ -31,6 +31,18 @@ bot.events = new Discord.Collection();
 
 setInterval(async()=>{
   await fetch("https://quickest-strong-nickel.glitch.me").then(console.log('ping'))
-},120000)
+  try{
+    let data = JSON.parse(fs.readFileSync('./env.json', 'utf-8'))
+    var dictstring = JSON.stringify(data);
+    fs.writeFile("./backup.json", dictstring,(err,res)=>{
+      if(err){
+        console.error(err)
+      }
+    });
+  }catch{
+    bot.destroy()
+  }
+
+},600000)
  
 bot.login(TOKEN);
