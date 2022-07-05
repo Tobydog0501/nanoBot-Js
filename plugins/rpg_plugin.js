@@ -1,7 +1,6 @@
 const fs = require('fs');
 var ui = JSON.parse(fs.readFileSync('./env.json', 'utf-8'))
 
-console.log(ui)
 
 module.exports = {
 

@@ -49,11 +49,6 @@ let ui = (async ()=>{
   },500)
 });
 
-console.log(ui)
-
-
-
-
 
 
 setInterval(async()=>{
