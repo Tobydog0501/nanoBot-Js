@@ -19,12 +19,39 @@ const bot = new Client({
 discordModals(bot);
 var afkMsg = {}
 
-bot.warns = new Discord.Collection()
-bot.commands = new Discord.Collection();
-bot.events = new Discord.Collection();
-['command_handler','event_handler'].forEach(handler=>{
-  require(`./handlers/${handler}`)(bot,Discord);
-})
+
+let ui = (async ()=>{
+  try{
+      var ui = require('./env.json')
+      return new Promise(res=>{res(ui)})
+  }catch{
+      fs.unlink("./env.json",err=>{
+          console.error(err)
+      })
+      let data = JSON.parse(fs.readFileSync('./backup.json', 'utf-8'))
+      var dictstring = JSON.stringify(data);
+      fs.writeFile("./env.json", dictstring,(err,res)=>{
+      if(err){
+          console.error(err)
+      }else
+          return new Promise(res=>{res(require('./backup.json'))})
+      });
+  }
+})().then(()=>{
+  setTimeout(()=>{
+    bot.warns = new Discord.Collection()
+  bot.commands = new Discord.Collection();
+  bot.events = new Discord.Collection();
+  ['command_handler','event_handler'].forEach(handler=>{
+    require(`./handlers/${handler}`)(bot,Discord);
+  })
+  
+  },500)
+});
+
+console.log(ui)
+
+
 
 
 
