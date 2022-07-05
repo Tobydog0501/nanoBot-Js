@@ -1,4 +1,4 @@
-var ui = require('./env.json');
+var ui = require('../env.json');
 
 const fs = require('fs')
 
@@ -38,7 +38,7 @@ module.exports = {
                 })
     },
 
-    async exp(msg,userId,Discord){   //earn exp    //return Promise
+    async exp(msg,userId){   //earn exp    //return Promise
         var totalExp = 0;
         await module.exports.initial(userId);
         await module.exports.checkAttachments(msg)
@@ -84,7 +84,7 @@ module.exports = {
         });
     },
 
-    async adminExpSet(bot,userId,exp,Discord){    //give exp
+    async adminExpSet(userId,exp){    //give exp
         var set = false;
         await module.exports.initial(userId)
         var before = {'lv': ui[userId]['lv'],'exp':ui[userId]['exp'],'totalExp':ui[userId]['totalExp']};
