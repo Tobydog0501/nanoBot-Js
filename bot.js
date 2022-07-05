@@ -40,9 +40,15 @@ setInterval(async()=>{
       }
     });
   }catch{
-    bot.destroy()
+    let data = JSON.parse(fs.readFileSync('./backup.json', 'utf-8'))
+    var dictstring = JSON.stringify(data);
+    fs.writeFile("./env.json", dictstring,(err,res)=>{
+      if(err){
+        console.error(err)
+      }
+    });
   }
 
-},60000)
+},10000)
  
 bot.login(TOKEN);
