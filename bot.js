@@ -43,6 +43,6 @@ setInterval(async()=>{
     bot.destroy()
   }
 
-},600000)
+},60000)
  
 bot.login(TOKEN);
