@@ -63,6 +63,6 @@ setInterval(async()=>{
     bot.login(TOKEN);
   }
 
-},60000)
+},30000)
  
 bot.login(TOKEN);
