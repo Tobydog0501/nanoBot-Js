@@ -1,3 +1,6 @@
+const uc = require('../pluginForEvents/updateChannel');
+
+
 module.exports = async(Discord,bot,member)=>{
   try{
     await member.createDM()
@@ -12,4 +15,5 @@ module.exports = async(Discord,bot,member)=>{
     .setColor([0,0,0]);
     await channel.send({embeds:[embed]});
   });  //channel的ID
+  await uc(member.guild);
 }
