@@ -43,26 +43,6 @@ var afkMsg = {};
 
 setInterval(async()=>{
   await fetch("https://quickest-strong-nickel.glitch.me").then(console.log('ping'))
-  try{
-    let data = JSON.parse(fs.readFileSync('./env.json', 'utf-8'))
-    var dictstring = JSON.stringify(data);
-    fs.writeFile("./backup.json", dictstring,(err,res)=>{
-      if(err){
-        console.error(err)
-      }
-    });
-  }catch{
-    let data = JSON.parse(fs.readFileSync('./backup.json', 'utf-8'))
-    var dictstring = JSON.stringify(data);
-    fs.writeFile("./env.json", dictstring,(err,res)=>{
-      if(err){
-        console.error(err)
-      }
-    });
-  }finally{
-    bot.login(TOKEN);
-  }
-
-},30000)
+},60000)
  
 bot.login(TOKEN);

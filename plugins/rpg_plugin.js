@@ -1,7 +1,7 @@
 const fs = require('fs');
 const fsPromise = require('fs/promises');
 var ui = JSON.parse(fs.readFileSync('./env.json', 'utf-8'));
-
+const repair = require("./repair");
 
 module.exports = {
 
@@ -253,6 +253,7 @@ module.exports = {
 }
 
 async function write(w){
+    await repair();
     var str = JSON.stringify(w)
     await fsPromise.writeFile('./env.json',str)
         .catch(err=>{
