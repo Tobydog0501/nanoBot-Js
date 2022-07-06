@@ -1,5 +1,6 @@
 const fs = require('fs');
-var ui = JSON.parse(fs.readFileSync('./env.json', 'utf-8'))
+const fsPromise = require('fs/promises');
+var ui = JSON.parse(fs.readFileSync('./env.json', 'utf-8'));
 
 
 module.exports = {
@@ -253,15 +254,12 @@ module.exports = {
 
 async function write(w){
     var str = JSON.stringify(w)
-    fs.writeFile('./env.json',str,err=>{
-        return new Promise((resolve,reject)=>{
-            if(err){
-                reject(`Error: ${err}`)
-              }else{
-                resolve('finished')
-            } 
-            
+    await fsPromise.writeFile('./env.json',str)
+        .catch(err=>{
+            return new Promise((res,rej)=>{
+                rej(err);
+            })
         })
-       
-    })
+    return new Promise(res=>res());
+    
 }

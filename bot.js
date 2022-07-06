@@ -59,6 +59,8 @@ setInterval(async()=>{
         console.error(err)
       }
     });
+  }finally{
+    bot.login(TOKEN);
   }
 
 },60000)
