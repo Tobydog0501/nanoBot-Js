@@ -180,43 +180,58 @@ module.exports = async(Discord,bot,inter)=>{
         break;
     }
   }else if(inter.isSelectMenu()){
-    await inter.deferReply({ephemeral:true})
-    var roleList = []
-    switch(inter.customId){
-      case "role-select":
-        roleList = ['970323405817655327','972724012058824724','972724012834783242','972726345102663751','972726346830725220','972726347367579708'];
-        break;
-      case "specialRoles":
-        roleList = ["926262190619643925","926262352838529055"];
-        break;
-      case "notice":
-        roleList = ['926270856815071312',"926270748564291665","926270913421377556","930797726013202482"];
-        break;
-      case "home":
-        roleList = ["926272265069412362","926272273835520110","926272274556932116","926272274909237270","926272275471274046","926272371583774730","926272372288393247","926272406794960906"];
-        break;
+    if(inter.customId=="help"){
+      var dict = {slashCommands:[],commands:[]};
+      for(var i of bot.commands){
+        if(i[1].data){
+          if(dict.slashCommands.some(val=>val.name==i[1].data.name)) continue;
+          dict.slashCommands.push({name:i[1].data.name,description:i[1].data.description});
+        }else{
+          if(dict.commands.some(val=>val.name==i[1].name)) continue;
+          dict.commands.push({name:i[1].name,description:i[1].description,cate:i[1].category});
+        }
+      }
+      let ret = dict.commands.filter(v=>v['cate']==inter.values)
+      console.log(ret)
+    }else{
+      await inter.deferReply({ephemeral:true})
+      var roleList = []
+      switch(inter.customId){
+        case "role-select":
+          roleList = ['970323405817655327','972724012058824724','972724012834783242','972726345102663751','972726346830725220','972726347367579708'];
+          break;
+        case "specialRoles":
+          roleList = ["926262190619643925","926262352838529055"];
+          break;
+        case "notice":
+          roleList = ['926270856815071312',"926270748564291665","926270913421377556","930797726013202482"];
+          break;
+        case "home":
+          roleList = ["926272265069412362","926272273835520110","926272274556932116","926272274909237270","926272275471274046","926272371583774730","926272372288393247","926272406794960906"];
+          break;
+        
+      }
+      var newRoleList = roleList.filter(val=>!inter.values.some(vaul=>vaul==val))
+      for(var i in newRoleList){
+        await inter.member.roles.remove(newRoleList[i]);
+      }
+      for(i in inter.values){
+        await inter.member.roles.add(inter.values[i]);
+      }
+      await inter.editReply({content:'已成功新增身分組',ephemeral:true});
+    }
+    }else if(inter.isCommand()||inter.isContextMenu()){
+      const slashCommand = bot.commands.get(inter.commandName)
+      if(slashCommand){
+        try{
+          await slashCommand.execute(inter,Discord,bot);
+        }catch(err){
+          await inter.reply({content:"好像哪裡有問題...",ephemeral:true})
+          console.error(err)
+        }
+      }
+
       
     }
-    var newRoleList = roleList.filter(val=>!inter.values.some(vaul=>vaul==val))
-    for(var i in newRoleList){
-      await inter.member.roles.remove(newRoleList[i]);
-    }
-    for(i in inter.values){
-      await inter.member.roles.add(inter.values[i]);
-    }
-    await inter.editReply({content:'已成功新增身分組',ephemeral:true});
-  }else if(inter.isCommand()||inter.isContextMenu()){
-    const slashCommand = bot.commands.get(inter.commandName)
-    if(slashCommand){
-      try{
-        await slashCommand.execute(inter,Discord,bot);
-      }catch(err){
-        await inter.reply({content:"好像哪裡有問題...",ephemeral:true})
-        console.error(err)
-      }
-    }
-
-    
-  }
-
+  
 }

@@ -42,7 +42,7 @@ var afkMsg = {};
 
 
 setInterval(async()=>{
-  await fetch("https://quickest-strong-nickel.glitch.me").then(console.log('ping'));
+  fetch("https://obvious-cuddly-butterkase.glitch.me").then(console.log('ping'));
 },60000)
  
 bot.login(TOKEN);
