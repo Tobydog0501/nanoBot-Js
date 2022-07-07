@@ -1,1 +1,1 @@
-{"tasks":[{"type":"SEND_MESSAGE","channel":null,"amount":1,"difficulty":"HARD","amplifier":1}]}
+{"tasks":[{"name":"送訊息","type":"SEND_MESSAGE","channel":null,"amount":1,"difficulty":"HARD","amplifier":1}]}
