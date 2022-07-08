@@ -1,1 +1,1 @@
-{"tasks":[{"name":"送訊息","type":"SEND_MESSAGE","channel":null,"amount":1,"difficulty":"HARD","amplifier":1}]}
+{"tasks":[{"name":"淺水安全防治Level 1","type":"SEND_MESSAGE","channel":"926092341469667359","amount":3,"difficulty":"EASY","amplifier":1,"specialRequire":null}]}

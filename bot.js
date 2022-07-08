@@ -7,6 +7,8 @@ const { Modal, TextInputComponent, showModal } = discordModals;
 const path = "./token.json"
 const fsPromise = require('fs/promises')
 const TOKEN = fs.existsSync(path)?require(path).tkn:process.env.tkn
+const controller = new AbortController();
+const { signal } = controller;
 
 const bot = new Client({
     intents: [
@@ -42,7 +44,10 @@ var afkMsg = {};
 
 
 setInterval(async()=>{
-  fetch("https://obvious-cuddly-butterkase.glitch.me").then(console.log('ping'));
-},60000)
+  fetch("https://obvious-cuddly-butterkase.glitch.me",{ signal }).then(console.log('ping')).catch(err=>console.warn(`Hey!`))
+  setTimeout(()=>{
+    controller.abort();
+},2000)
+},120000)
  
 bot.login(TOKEN);
