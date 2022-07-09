@@ -1,4 +1,5 @@
 const uc = require('../pluginForEvents/updateChannel');
+const fetch = require('node-fetch');
 const controller = new AbortController();
 const { signal } = controller;
 

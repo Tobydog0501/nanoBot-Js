@@ -1,4 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const fsPromise = require('fs/promises');
+const fs = require('fs');
 
 module.exports = {
     data:new SlashCommandBuilder()
@@ -49,6 +51,36 @@ module.exports = {
      
     ,
     async execute(inter,Discord){
-        
+        if(inter.member.id!=='606668363531288577'&&inter.member.id!=='939843138242105384'){
+            return
+        }
+        let list = ['name','type','channel','amount','difficulty','amplifier','specialRequire']
+        let newTask = {
+            "name":inter.options.get('任務名稱').value,
+            "type":inter.options.get('任務型態').value,
+            "channel":inter.options.get('任務地點').value?inter.options.get('任務地點').value:null,
+            "amount":inter.options.get('數量').value,
+            "difficulty":inter.options.get('任務難度').value,
+            "amplifier":inter.options.get('經驗加倍').value,
+            "specialRequire":inter.options.get('任務特殊需求').value?inter.options.get('任務特殊需求').value:null
+        }
+        let data = JSON.parse(fs.readFileSync('./plugins/tasks.json', 'utf-8'))
+        if(data['tasks'].some(v=>v['name']==inter.options.get('任務名稱').value)){
+            await inter.reply(`已經有名為${inter.options.get('任務名稱').value}的任務了`);
+            return;
+        }
+        data['tasks'].push(newTask)
+        var dictstring = JSON.stringify(data);
+        await fsPromise.writeFile("./plugins/tasks.json", dictstring);
+        var field = [];
+        for(var i in newTask){
+            field.push({name:i,value:newTask[i],inline:true});
+        }
+        let embed = new Discord.MessageEmbed()
+            .setTitle(`新增任務成功`)
+            .setDescription(`已新增任務，詳細如下`)
+            .setFields(field)
+            .setColor('RANDOM')
+        await inter.reply({embeds:[embed]})
     }
 }
