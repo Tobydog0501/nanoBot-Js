@@ -4,3 +4,5 @@ env.json
 backup.json
 token.json
 tasks.json
+.replit
+replit.nix
