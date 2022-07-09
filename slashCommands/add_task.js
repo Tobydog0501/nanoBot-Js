@@ -58,13 +58,14 @@ module.exports = {
         let newTask = {
             "name":inter.options.get('任務名稱').value,
             "type":inter.options.get('任務型態').value,
-            "channel":inter.options.get('任務地點').value?inter.options.get('任務地點').value:null,
+            "channel":inter.options.get('任務地點')?inter.options.get('任務地點').value:null,
             "amount":inter.options.get('數量').value,
             "difficulty":inter.options.get('任務難度').value,
             "amplifier":inter.options.get('經驗加倍').value,
-            "specialRequire":inter.options.get('任務特殊需求').value?inter.options.get('任務特殊需求').value:null
+            "specialRequire":inter.options.get('任務特殊需求')?inter.options.get('任務特殊需求').value:null
         }
         let data = JSON.parse(fs.readFileSync('./tasks.json', 'utf-8'))
+        if(data['tasks']==undefined) data = {'tasks':[]};
         if(data['tasks'].some(v=>v['name']==inter.options.get('任務名稱').value)){
             await inter.reply(`已經有名為${inter.options.get('任務名稱').value}的任務了`);
             return;
