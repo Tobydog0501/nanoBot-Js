@@ -47,6 +47,10 @@ module.exports = {
             option.setName('任務特殊需求')
                 .setDescription('include or something else')
                 .setRequired(false))
+        .addStringOption(option =>
+            option.setName('取代原有任務')
+                .setDescription('任意輸入')
+                .setRequired(false))
                 
      
     ,
@@ -66,8 +70,8 @@ module.exports = {
         }
         let data = JSON.parse(fs.readFileSync('./tasks.json', 'utf-8'))
         if(data['tasks']==undefined) data = {'tasks':[]};
-        if(data['tasks'].some(v=>v['name']==inter.options.get('任務名稱').value)){
-            await inter.reply(`已經有名為${inter.options.get('任務名稱').value}的任務了`);
+        if(data['tasks'].some(v=>v['name']==inter.options.get('任務名稱').value)&&!inter.options.get('任務特殊需求')){
+            await inter.reply(`已經有名為${inter.options.get('任務名稱').value}的任務了\n若想取代原任務，請在**取代原有任務**中輸入任意文字或數字`);
             return;
         }
         data['tasks'].push(newTask)
