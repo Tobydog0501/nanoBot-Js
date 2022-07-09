@@ -83,8 +83,8 @@ module.exports = {
             field.push({name:i,value:newTask[i],inline:true});
         }
         let embed = new Discord.MessageEmbed()
-            .setTitle(`新增任務成功`)
-            .setDescription(`已${!inter.options.get('取代原有任務')?"取代原":'新增'}任務，詳細如下`)
+            .setTitle(`任務修改成功`)
+            .setDescription(`已${!inter.options.get('取代原有任務')?"新增":'取代原'}任務，詳細如下`)
             .setFields(field)
             .setColor('RANDOM')
         await inter.reply({embeds:[embed]})
