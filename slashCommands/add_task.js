@@ -64,14 +64,14 @@ module.exports = {
             "amplifier":inter.options.get('經驗加倍').value,
             "specialRequire":inter.options.get('任務特殊需求').value?inter.options.get('任務特殊需求').value:null
         }
-        let data = JSON.parse(fs.readFileSync('./plugins/tasks.json', 'utf-8'))
+        let data = JSON.parse(fs.readFileSync('./tasks.json', 'utf-8'))
         if(data['tasks'].some(v=>v['name']==inter.options.get('任務名稱').value)){
             await inter.reply(`已經有名為${inter.options.get('任務名稱').value}的任務了`);
             return;
         }
         data['tasks'].push(newTask)
         var dictstring = JSON.stringify(data);
-        await fsPromise.writeFile("./plugins/tasks.json", dictstring);
+        await fsPromise.writeFile("./tasks.json", dictstring);
         var field = [];
         for(var i in newTask){
             field.push({name:i,value:newTask[i],inline:true});
