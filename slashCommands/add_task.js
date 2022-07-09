@@ -74,6 +74,7 @@ module.exports = {
         await fsPromise.writeFile("./tasks.json", dictstring);
         var field = [];
         for(var i in newTask){
+            if(!newTask[i]) continue;
             field.push({name:i,value:newTask[i],inline:true});
         }
         let embed = new Discord.MessageEmbed()
