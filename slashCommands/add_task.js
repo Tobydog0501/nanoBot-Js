@@ -70,7 +70,7 @@ module.exports = {
         }
         let data = JSON.parse(fs.readFileSync('./tasks.json', 'utf-8'))
         if(data['tasks']==undefined) data = {'tasks':[]};
-        if(data['tasks'].some(v=>v['name']==inter.options.get('任務名稱').value)&&!inter.options.get('任務特殊需求')){
+        if(data['tasks'].some(v=>v['name']==inter.options.get('任務名稱').value)&&!inter.options.get('取代原有任務')){
             await inter.reply(`已經有名為${inter.options.get('任務名稱').value}的任務了\n若想取代原任務，請在**取代原有任務**中輸入任意文字或數字`);
             return;
         }
@@ -84,7 +84,7 @@ module.exports = {
         }
         let embed = new Discord.MessageEmbed()
             .setTitle(`新增任務成功`)
-            .setDescription(`已新增任務，詳細如下`)
+            .setDescription(`已${!inter.options.get('取代原有任務')?"取代原":'新增'}任務，詳細如下`)
             .setFields(field)
             .setColor('RANDOM')
         await inter.reply({embeds:[embed]})
