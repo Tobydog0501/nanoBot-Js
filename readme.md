@@ -14,36 +14,36 @@ Command prefix: n/
 
 ## Testing Commands
 * ping
- * Shows the ping of the bot.
+    * Shows the ping of the bot.
 * uptime
- * Aliases: up, ut
- * Shows how much time the bot has been online.
+    * Aliases: up, ut
+    * Shows how much time the bot has been online.
 * help
- * Shows the commands of the bot.
- * Somehow I haven't finish this command lol.
+    * Shows the commands of the bot.
+    * Somehow I haven't finish this command lol.
 
 ## RPG Commands
 * rank
- * Aliases: level, lv, exp, ra
- * Shows user's level and exp.
- * Examples: `n/rank` `n/rank <user or userID>` 
+    * Aliases: level, lv, exp, ra
+    * Shows user's level and exp.
+    * Examples: `n/rank` `n/rank <user or userID>` 
 * top
- * Shows the top users of the server, or the rank of a user.
- * Examples: `n/top` `n/top <page>` `n/top <user or userID>`
+    * Shows the top users of the server, or the rank of a user.
+    * Examples: `n/top` `n/top <page>` `n/top <user or userID>`
 * userInfo
- * Aliases: ui, user
- * Shows the information of a user
- * Examples: `n/ui` `n/ui <user or userID>`
+    * Aliases: ui, user
+    * Shows the information of a user
+    * Examples: `n/ui` `n/ui <user or userID>`
 
 ## Slash Commands
 * clean_roles
- * Remove the specfic roles you choose
+    * Remove the specfic roles you choose
 * suggest
- * Give advises to the admins
+    * Give advises to the admins
 
 ## Context menu
 * report
- * report a user with a sussy message
+    * report a user with a sussy message
 
 ## Economy Commands
 Haven't worked on it.
