@@ -7,10 +7,18 @@ const { signal } = controller;
 module.exports = async (Discord,bot) => {
   console.log(`${bot.user.tag} is online`);
   await bot.user.setActivity({type:"PLAYING","name":"n/help"})
-  
-  let guild = await bot.guilds.fetch('926089413933539359');
-  await uc(guild);
-
+  setInterval(()=>{
+    fetch('https://nanoBot-Js.tobydog0501.repl.co',{signal})
+      .then(res=>console.log('pinged'))
+      .catch(err=>{
+        console.log('restart server')
+        console.error(err)
+        const server = require('../../keep_alive');
+      })
+    setTimeout(()=>{
+      controller.abort()
+    },5000)
+  },180000)
 
   
 //   const guild = bot.guilds.cache.get('926089413933539359')
