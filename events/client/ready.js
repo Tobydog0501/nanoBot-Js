@@ -8,17 +8,18 @@ module.exports = async (Discord,bot) => {
   console.log(`${bot.user.tag} is online`);
   await bot.user.setActivity({type:"PLAYING","name":"n/help"})
   setInterval(()=>{
+    var timeoutId = setTimeout(()=>{controller.abort()},5000)
     fetch('https://nanoBot-Js.tobydog0501.repl.co',{signal})
-      .then(res=>console.log('pinged'))
+      .then(res=>{
+        console.log('pinged')
+        clearTimeout(timeoutId)
+      })
       .catch(err=>{
         console.log('restart server')
         console.error(err)
-        const server = require('../../keep_alive');
+        const server = require('../../keep_alive.js');
       })
-    setTimeout(()=>{
-      controller.abort()
-    },5000)
-  },180000)
+  },10000)
 
   
 //   const guild = bot.guilds.cache.get('926089413933539359')
