@@ -7,7 +7,7 @@ module.exports = {
     description:"檢視使用者等級",
     aliases:['ra','exp','lv','level'],
     async execute(bot,msg,args,Discord){
-        var userId = args[0]?args[0]:msg.author.id;
+        var userId = args[0]?args[0].replace('<@','').replace('>',''):msg.author.id;
         await msg.reply('Fetching data...')
             .then(async Emsg=>{
                 await plu.rank(userId)
