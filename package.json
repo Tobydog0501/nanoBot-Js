@@ -11,7 +11,7 @@
   },
   "name": "discord-bot-js-example",
   "description": "https://discord.js.org/#/docs/main/stable/general/welcome\r https://nodejs.org/en/download/",
-  "version": "Beta 0.5.6",
+  "version": "Beta 0.7.0",
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
