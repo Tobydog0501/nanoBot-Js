@@ -19,7 +19,7 @@ module.exports = async (Discord,bot) => {
         console.error(err)
         const server = require('../../keep_alive.js');
       })
-  },10000)
+  },120000)
 
   
 //   const guild = bot.guilds.cache.get('926089413933539359')
