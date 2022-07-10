@@ -10,9 +10,9 @@
   "name": "discord-bot-js-example",
   "description": "https://discord.js.org/#/docs/main/stable/general/welcome\r https://nodejs.org/en/download/",
   "version": "Beta 0.5.6",
-  "main": "bot.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./bot.js",
+    "start": "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
