@@ -7,4 +7,4 @@ Beta 0.7.0
 # To Do List
 - [x] Level System
 - [x] RPG System
-- [] Economy System
+- [ ] Economy System
