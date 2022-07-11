@@ -16,6 +16,7 @@ module.exports = async (Discord,bot) => {
       })
       .catch(err=>{
         console.log('restart server')
+        clearTimeout(timeoutId)
         console.error(err)
         const server = require('../../keep_alive.js');
       })
