@@ -47,3 +47,49 @@ Command prefix: n/
 
 ## Economy Commands
 Haven't worked on it.
+
+# Commands that we are still working on
+## RPGs
+Might connect with economy system
+* dungeon
+	* dungeon start <dungeon ID>
+	* dungeon end <dungeon ID>
+		* Start or end a dungeon.
+		* Aliases: dun,du
+		* Examples: `n/dun <start||end> <dungeon ID>` `n/dun <s||e> <dungeon ID>`
+* adventure
+	* adventure <s||e>
+		* Aliases: adv, adve
+		* Start or end an adventure in the channel.
+	* adv <options>
+		* options: afk, atk, run, mine
+			* afk: Set yourself as afk mode
+				* In afk mode, you won't take or do any damage.
+				
+			* atk: Automatically attack enemies...... If you are stronger.
+				* In this mode, you can do and take damages, which means u will have rewards and maybe...DEATH.
+			
+			* run: RUN!
+				* You can't do any damages. The only thing you will do is to run away... If it is possible.
+				* Oh did I mention that you might die in this mode if you can't run away?
+				* Also, you will receive rewards in this mode.
+				
+			* mine: I was born for mine, mine, mine.
+				* Only mining, no fighting, no exp rewards, but money rewards.
+				* There migth be creepers in the mine?
+				
+	* loot
+		* Check all the loots you've gotten in the last adv.
+	* backpack
+		* Check what you have
+		* Aliases: b, bp
+				
+* shop
+	* shop
+		* Open the shop.
+		
+	* sell
+		* Sell the item in the shop.
+			
+				
+				
