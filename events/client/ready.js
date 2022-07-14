@@ -18,7 +18,6 @@ module.exports = async (Discord,bot) => {
         console.log('restart server')
         clearTimeout(timeoutId)
         console.error(err)
-        keep_alive();
       })
   },120000)
 
