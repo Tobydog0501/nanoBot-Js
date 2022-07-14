@@ -2,7 +2,7 @@ const uc = require('../pluginForEvents/updateChannel');
 const fetch = require('node-fetch');
 const controller = new AbortController();
 const { signal } = controller;
-
+const keep_alive = require('../../keep_alive.js')
 
 module.exports = async (Discord,bot) => {
   console.log(`${bot.user.tag} is online`);
@@ -18,7 +18,7 @@ module.exports = async (Discord,bot) => {
         console.log('restart server')
         clearTimeout(timeoutId)
         console.error(err)
-        const server = require('../../keep_alive.js');
+        keep_alive();
       })
   },120000)
 
