@@ -205,21 +205,21 @@ module.exports = {
             if(lv>3){
                 amount += lv*100;
             }else{
-                amount += levelExpRequire[lv-1]
+                amount += levelExpRequire[lv-1];
             }
         }
         amount += ui[userId]['exp'];
         ui[userId]['totalExp'] = amount;
         return new Promise(res=>{
-            res(amount)
-        })
+            res(amount);
+        });
 
     },
 
     async tops(page,user){
         var list = []
         for(var i in ui){
-            list.push({'userId':i,'rank':ui[i]})
+            list.push({'userId':i,'rank':ui[i]});
         }
         list.sort((a,b)=>{
             return b['rank']['totalExp']-a['rank']['totalExp'];

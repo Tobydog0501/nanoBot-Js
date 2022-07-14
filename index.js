@@ -41,5 +41,5 @@ var afkMsg = {};
 })();
 
 
- 
+keep_alive();
 bot.login(TOKEN);
