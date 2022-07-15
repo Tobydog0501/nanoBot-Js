@@ -3,11 +3,19 @@ const fetch = require('node-fetch');
 const controller = new AbortController();
 const { signal } = controller;
 const keep_alive = require('../../keep_alive.js')
+const activities_list = [
+  { type: 'PLAYING',  message: 'n/help'  },
+  { type: 'WATCHING', message: 'RPG系統編寫進度' },
+  { type: 'WATCHING', message: '香香的圖片' }
+];
 
 module.exports = async (Discord,bot) => {
   console.log(`${bot.user.tag} is online`);
   await bot.user.setActivity({type:"PLAYING","name":"n/help"})
   setInterval(()=>{
+    const index = Math.floor(Math.random() * (activities_list.length - 1) + 1);
+
+    client.user.setActivity(activities_list[index].message, { type: activities_list[index].type });
     fetch('https://nanoBot-Js.tobydog0501.repl.co',{signal})
       .then(res=>{
         console.log('pinged')
@@ -16,7 +24,7 @@ module.exports = async (Discord,bot) => {
         console.log('restart server')
         console.error(err)
       })
-  },120000)
+  },10000)
 
   
 //   const guild = bot.guilds.cache.get('926089413933539359')
