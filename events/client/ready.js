@@ -19,14 +19,6 @@ module.exports = async (Discord,bot) => {
     const index = Math.floor(Math.random() * (activities_list.length - 1) + 1);
 
     bot.user.setActivity(activities_list[index].message, { type: activities_list[index].type });
-    fetch('https://nanoBot-Js.tobydog0501.repl.co',{signal})
-      .then(res=>{
-        console.log('pinged')
-      })
-      .catch(err=>{
-        console.log('restart server')
-        console.error(err)
-      })
   },10000)
 
   
