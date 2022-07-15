@@ -6,7 +6,10 @@ const keep_alive = require('../../keep_alive.js')
 const activities_list = [
   { type: 'PLAYING',  message: 'n/help'  },
   { type: 'WATCHING', message: 'RPG系統編寫進度' },
-  { type: 'WATCHING', message: '香香的圖片' }
+  { type: 'WATCHING', message: '香香的圖片' },
+  { type: 'WATCHING', message: '偷懶的小風' },
+  { type: 'PLAYING', message: '自己的指令(?' },
+  { type: 'WATCHING', message: 'Never gonna give you up' }
 ];
 
 module.exports = async (Discord,bot) => {
