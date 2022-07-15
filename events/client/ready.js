@@ -15,7 +15,7 @@ module.exports = async (Discord,bot) => {
   setInterval(()=>{
     const index = Math.floor(Math.random() * (activities_list.length - 1) + 1);
 
-    client.user.setActivity(activities_list[index].message, { type: activities_list[index].type });
+    bot.user.setActivity(activities_list[index].message, { type: activities_list[index].type });
     fetch('https://nanoBot-Js.tobydog0501.repl.co',{signal})
       .then(res=>{
         console.log('pinged')
