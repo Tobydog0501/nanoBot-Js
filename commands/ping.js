@@ -1,3 +1,6 @@
+const fetch = require('node-fetch');
+
+
 module.exports = {
   name:'ping',
   category:"test",
@@ -7,6 +10,14 @@ module.exports = {
       .then(async message=>{
     let time = message.createdTimestamp-msg.createdTimestamp;
     await message.edit({content:`pong!\n${time}ms`})});
+    fetch('https://nanoBot-Js.tobydog0501.repl.co',{signal})
+      .then(res=>{
+        msg.channel.send('pinged the website!')
+      })
+      .catch(err=>{
+        msg.channel.send('sussybaka')
+        console.error(err)
+      })
     return;
   }
 }
