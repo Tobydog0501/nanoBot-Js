@@ -1,7 +1,7 @@
 const plu = require('../plugins/rpg_plugin');
 
 module.exports = {
-    name:"userInfo",
+    name:"userinfo",
     category:"test",
     description:"取得使用者資訊",
     aliases:['ui','user'],
