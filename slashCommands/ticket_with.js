@@ -12,9 +12,7 @@ module.exports = {
                 .setRequired(true))
     ,
     async execute(inter,Discord){
-        console.log(inter.options.get('成員').value)
         var target = inter.options.get('成員').value.replace('<@!','').replace('>','');
-        console.log(target)
         if(target.length!=18){
             inter.reply('這不是個Snowflake!');
             return
