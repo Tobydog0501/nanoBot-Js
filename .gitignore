@@ -8,5 +8,6 @@ tasks.json
 replit.nix
 .glitchdotcom.json
 .node-gyp
-public
-src
+public/
+src/
+keep_alive
