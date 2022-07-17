@@ -6,3 +6,8 @@ token.json
 tasks.json
 .replit
 replit.nix
+.glitchdotcom.json
+.node-gyp
+public/
+src/
+keep_alive

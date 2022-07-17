@@ -2,7 +2,6 @@ const uc = require('../pluginForEvents/updateChannel');
 const fetch = require('node-fetch');
 const controller = new AbortController();
 const { signal } = controller;
-const keep_alive = require('../../keep_alive.js')
 const activities_list = [
   { type: 'PLAYING',  message: 'n/help'  },
   { type: 'WATCHING', message: 'RPG系統編寫進度' },
