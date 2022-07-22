@@ -17,7 +17,7 @@ module.exports = {
                                 let ava = await user.user.avatarURL();
                                 let embed = new Discord.MessageEmbed()
                                     .setTitle('等級查詢')
-                                    .setDescription(`目前等級：${ui['lv']}\n經驗值：${ui['exp']}\n總經驗值：${ui['totalExp']}`)   //可能要用%
+                                    .setDescription(`目前等級：${ui['rank']['lv']}\n經驗值：${ui['rank']['exp']}\n總經驗值：${ui['rank']['totalExp']}\n\n等級進度：||${ui['per']} (${ui['req']})||`)   //可能要用%
                                     .setThumbnail(ava) //被搜尋者頭像
                                     .setColor('RANDOM')
                                 await Emsg.edit({content:'獲取資料成功!',embeds:[embed]});

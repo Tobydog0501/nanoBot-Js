@@ -33,9 +33,10 @@ module.exports = {
                     reject(rej);
                 })
             });
+        var next = await module.exports.nextLv(userId)
 
         return new Promise((res,reject)=>{
-                    res(ui[userId]);
+                    res({'rank':ui[userId],'req':next['req'],'per':next['per']});
                 })
     },
 
@@ -245,6 +246,21 @@ module.exports = {
                     res(rank);
                 }
             }
+        })
+    },
+
+    async nextLv(userId){
+        var levelExpRequire = [80,150,250];
+        var currentExp = ui[userId]['exp'];
+        var currentLv = ui[userId]['lv'];
+        if(currentLv>2){
+            var requireExp = 100*(currentLv+1);
+        }else{
+            var requireExp = levelExpRequire[currentLv]
+        }
+        const ret = {'req':`${currentExp}/${requireExp}`,'per':`${Math.round(currentExp/requireExp*100)}%`}
+        return new Promise(res=>{
+            res(ret)
         })
     },
 
