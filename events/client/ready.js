@@ -2,6 +2,7 @@ const uc = require('../pluginForEvents/updateChannel');
 const fetch = require('node-fetch');
 const controller = new AbortController();
 const { signal } = controller;
+const keep_alive = require('../../keep_alive.js')
 const activities_list = [
   { type: 'PLAYING',  message: 'n/help'  },
   { type: 'WATCHING', message: 'RPG系統編寫進度' },
@@ -12,6 +13,7 @@ const activities_list = [
 ];
 
 module.exports = async (Discord,bot) => {
+  keep_alive();
   console.log(`${bot.user.tag} is online`);
   await bot.user.setActivity({type:"PLAYING","name":"n/help"})
   setInterval(()=>{

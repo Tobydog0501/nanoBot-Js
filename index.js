@@ -7,7 +7,7 @@ const { Modal, TextInputComponent, showModal } = discordModals;
 const path = "./token.json"
 const fsPromise = require('fs/promises')
 const TOKEN = fs.existsSync(path)?require(path).tkn:process.env.tkn
-const keep_alive = require('./keep_alive.js')
+
 
 const bot = new Client({
     intents: [
@@ -40,5 +40,5 @@ var afkMsg = {};
   }
 })();
 
-keep_alive();
+
 bot.login(TOKEN);
