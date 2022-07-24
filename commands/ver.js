@@ -3,7 +3,7 @@ module.exports = {
     description:'verify',
     category:"test",
     async execute(bot,msg,args,Discord){
-        return;
+        if (msg.author.id!='606668363531288577')return;
         let com = new Discord.MessageActionRow()
             .setComponents([
                 new Discord.MessageButton()
