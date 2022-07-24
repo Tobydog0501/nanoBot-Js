@@ -6,7 +6,7 @@ const repair = require("./repair");
 module.exports = {
 
     async initial(userId){ //reset
-        if(userId.length!=18||typeof(parseInt(userId))==NaN){
+        if(userId.length!=18&&userId.length!=19||typeof(parseInt(userId))==NaN){
             return new Promise((res,rej)=>{
                 rej(`Error: user id isn't a snowflake`);
             })
@@ -141,7 +141,7 @@ module.exports = {
     async checkEmoji(ctn){  //return Promise
         var emojis = 0;
         while(ctn.includes('<:')){    //len = 18
-            if(ctn.indexOf(':',ctn.indexOf(':'))-ctn.indexOf('>')===18){
+            if(ctn.indexOf(':',ctn.indexOf(':'))-ctn.indexOf('>')===18||ctn.indexOf(':',ctn.indexOf(':'))-ctn.indexOf('>')===19){
                 ctn.replace(ctn.slice(ctn.indexOf('<:'),ctn.indexOf(':')+19),'x');  //19 might be wrong
                 emojis += 1;
             }
