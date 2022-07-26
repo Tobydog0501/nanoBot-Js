@@ -23,7 +23,7 @@ module.exports = async (Discord,bot) => {
     const index = Math.floor(Math.random() * (activities_list.length - 1) + 1);
 
     bot.user.setActivity(activities_list[index].message, { type: activities_list[index].type });
-  },10000)
+  },30000)
 
   
 //   const guild = bot.guilds.cache.get('926089413933539359')
