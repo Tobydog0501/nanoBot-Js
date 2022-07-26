@@ -19,11 +19,12 @@ module.exports = async (Discord,bot) => {
   keep_alive();
   console.log(`${bot.user.tag} is online`);
   await bot.user.setActivity({type:"PLAYING","name":"n/help"})
-  setInterval(()=>{
+  setInterval(async()=>{
     const index = Math.floor(Math.random() * (activities_list.length - 1) + 1);
 
     bot.user.setActivity(activities_list[index].message, { type: activities_list[index].type });
-  },30000)
+    await fetch('https://nanoBot-Js.tobydog0501.repl.co')
+  },60000)
 
   
 //   const guild = bot.guilds.cache.get('926089413933539359')
