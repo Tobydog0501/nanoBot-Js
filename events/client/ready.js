@@ -24,6 +24,7 @@ module.exports = async (Discord,bot) => {
 
     bot.user.setActivity(activities_list[index].message, { type: activities_list[index].type });
     await fetch('https://nanoBot-Js.tobydog0501.repl.co')
+    console.log('pinged')
   },60000)
 
   
