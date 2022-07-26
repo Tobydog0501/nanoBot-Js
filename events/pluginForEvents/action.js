@@ -12,7 +12,7 @@ module.exports = async function action(Discord,bot,msg){
           bot.warns.set(msg.author.id,0)
           await msg.guild.channels.fetch('972464113290711050')
             .then(async channel=>{
-              await channel.send({content:'<@989184598632181801>',embeds:[new Discord.MessageEmbed().setTitle('懲處').setDescription(v.reason=='刷頻連結'?`<@${k}>因傳送${v.times}次可疑連結而被禁言30分鐘`:`<@${k}>因傳送${v.times}次疑似token之訊息而被禁言60分鐘`)],
+              await channel.send({content:'<@989184598632181801>',embeds:[new Discord.MessageEmbed().setTitle('懲處').setDescription(v.reason=='刷頻連結'?`<@${k}>因傳送${v.times}次可疑連結而被禁言30分鐘\n連結：${msg.content}`:`<@${k}>因傳送${v.times}次疑似token之訊息而被禁言60分鐘`)],
                                  components:[new Discord.MessageActionRow().setComponents([
                                    new Discord.MessageButton()
                                      .setCustomId(`dtt-${k}`)
@@ -23,17 +23,7 @@ module.exports = async function action(Discord,bot,msg){
                                      .setLabel('停權使用者')
                                      .setStyle("DANGER")
                                  ])]})
-                                 .then(msg=>msg.edit({embeds:[new Discord.MessageEmbed().setTitle('懲處').setDescription(v.reason=='刷頻連結'?`<@${k}>因傳送${v.times}次可疑連結而被禁言30分鐘`:`<@${k}>因傳送${v.times}次疑似token之訊息而被禁言60分鐘`)],
-                                 components:[new Discord.MessageActionRow().setComponents([
-                                   new Discord.MessageButton()
-                                     .setCustomId(`dtt-${k}`)
-                                     .setLabel('解除禁言')
-                                     .setStyle("SUCCESS"),
-                                   new Discord.MessageButton()
-                                     .setCustomId(`ban-${k}`)
-                                     .setLabel('停權使用者')
-                                     .setStyle("DANGER")
-                                 ])]}))
+                                 
           })
         })
       })
