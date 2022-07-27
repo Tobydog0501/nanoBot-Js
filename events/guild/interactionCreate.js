@@ -1,5 +1,6 @@
 const discordModals = require('discord-modals');
 const { Modal, TextInputComponent, showModal } = discordModals;
+const uc = require('../pluginForEvents/updateChannel');
 
 module.exports = async(Discord,bot,inter)=>{
     if(inter.isButton()){
@@ -196,18 +197,20 @@ module.exports = async(Discord,bot,inter)=>{
     }else{
       await inter.deferReply({ephemeral:true})
       var roleList = []
+      var check = false;
       switch(inter.customId){
         case "role-select":
           roleList = ['970323405817655327','972724012058824724','972724012834783242','972726345102663751','972726346830725220','972726347367579708'];
           break;
         case "specialRoles":
+          check = true
           roleList = ["926262190619643925","926262352838529055"];
           break;
         case "notice":
           roleList = ['926270856815071312',"926270748564291665","926270913421377556","930797726013202482"];
           break;
         case "home":
-          roleList = ["926272265069412362","926272273835520110","926272274556932116","926272274909237270","926272275471274046","926272371583774730","926272372288393247","926272406794960906"];
+          roleList = ['926263379331514368', '926272265069412362', '1001401223762690088', '926272273835520110', '926272274556932116', '926272274909237270', '926272275471274046', '1001401869521915904', '1001401868775329852', '1001401867751927898', '926272371583774730', '1001401866732703774', '926272372288393247', '926272406794960906'];
           break;
         
       }
@@ -219,6 +222,7 @@ module.exports = async(Discord,bot,inter)=>{
         await inter.member.roles.add(inter.values[i]);
       }
       await inter.editReply({content:'已成功新增身分組',ephemeral:true});
+      if(check) await uc(nMember.guild);
     }
     }else if(inter.isCommand()||inter.isContextMenu()){
       const slashCommand = bot.commands.get(inter.commandName)
