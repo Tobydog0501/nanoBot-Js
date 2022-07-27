@@ -8,7 +8,8 @@
     "discord.js": "^13.8.1",
     "express": "^4.18.1",
     "fs": "^0.0.1-security",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "request": "^2.88.2"
   },
   "name": "discord-bot-js-example",
   "description": "https://discord.js.org/#/docs/main/stable/general/welcome\r https://nodejs.org/en/download/",

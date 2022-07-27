@@ -2,6 +2,7 @@ const uc = require('../pluginForEvents/updateChannel');
 const fetch = require('node-fetch');
 const controller = new AbortController();
 const { signal } = controller;
+const request = require('request')
 const keep_alive = require('../../keep_alive.js')
 const activities_list = [
   { type: 'LISTENING',  message: '怎麼罷工才不會被發現'  },
@@ -21,7 +22,9 @@ module.exports = async (Discord,bot) => {
   await bot.user.setActivity({type:"PLAYING","name":"n/help"})
   setInterval(async()=>{
     const index = Math.floor(Math.random() * (activities_list.length - 1) + 1);
-
+    request('https://zany-swift-vein.glitch.me',(err,res,body)=>{
+      console.error(err)   
+    })
     bot.user.setActivity(activities_list[index].message, { type: activities_list[index].type });
   },30000)
 
