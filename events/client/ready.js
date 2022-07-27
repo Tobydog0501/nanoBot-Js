@@ -23,7 +23,7 @@ module.exports = async (Discord,bot) => {
   setInterval(async()=>{
     const index = Math.floor(Math.random() * (activities_list.length - 1) + 1);
     request('https://zany-swift-vein.glitch.me',(err,res,body)=>{
-      console.error(err)   
+      if(err) console.error(err)   
     })
     bot.user.setActivity(activities_list[index].message, { type: activities_list[index].type });
   },30000)
