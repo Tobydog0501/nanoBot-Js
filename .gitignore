@@ -10,4 +10,4 @@ replit.nix
 .node-gyp
 public/
 src/
-keep_alive
+keep_alive 
