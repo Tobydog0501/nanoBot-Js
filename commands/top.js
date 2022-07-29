@@ -34,7 +34,7 @@ module.exports = {
             await plu.tops(null,user)
                 .then(async rank=>{
                     await msg.reply(`使用者<@${user}>排名：${rank}`)
-                    await r_u_ac(msg)
+                    await r_u_ac(msg,user);
                 })
                 .catch(async err=>{
                     await msg.reply(err);

@@ -22,7 +22,7 @@ module.exports = {
                             .setThumbnail(ava) //被搜尋者頭像
                             .setColor('RANDOM')
                         await Emsg.edit({content:'獲取資料成功!',embeds:[embed]});
-                        await r_u_ac(msg)
+                        await r_u_ac(msg,userId);
                     })
                     .catch(async err=>{
                         console.warn(err);
