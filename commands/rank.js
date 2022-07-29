@@ -1,5 +1,5 @@
 const plu = require('../plugins/rpg_plugin');
-
+const r_u_ac = require('../events/pluginForEvents/roleUpdate')
 
 module.exports = {
     name:'rank',
@@ -22,6 +22,7 @@ module.exports = {
                             .setThumbnail(ava) //被搜尋者頭像
                             .setColor('RANDOM')
                         await Emsg.edit({content:'獲取資料成功!',embeds:[embed]});
+                        await r_u_ac(msg)
                     })
                     .catch(async err=>{
                         console.warn(err);

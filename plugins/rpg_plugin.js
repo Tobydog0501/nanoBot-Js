@@ -264,6 +264,32 @@ module.exports = {
         })
     },
 
+    async roleUpdate(userId){
+        var rank = await module.exports.rank(userId);
+        rank = rank['rank'];
+        var ret_level = new Map();
+        [2,5,8,11,15,18,20,23,27,30,35,40].forEach(v=>{
+            if(rank['lv']>=v){
+                ret_level.set(v,true);
+            }else{
+                ret_level.set(v,false);
+            }
+        });
+        var ret_rank = new Map();
+        var tp = await module.exports.tops(null,userId);
+        [10,5,3,1].forEach(v=>{
+            if(tp<=v){
+                ret_rank.set(v,true);
+            }else{
+                ret_rank.set(v,false);
+            }
+        });
+
+        return new Promise((res)=>{
+            res({'lv':ret_level,'rank':ret_rank})
+        });
+    },
+
     tasksLists:[]
 
 }

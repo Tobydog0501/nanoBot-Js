@@ -1,9 +1,9 @@
-const { exp } = require("../../plugins/rpg_plugin");
+const { exp , roleUpdate } = require("../../plugins/rpg_plugin");
 const fs = require('fs')
 const path = "./token.json"
 const prefix = fs.existsSync(path)?"m/":"n/"
 const action = require('../pluginForEvents/action');
-
+const role_update_action = require('../pluginForEvents/roleUpdate')
 
 module.exports = async (Discord,bot,msg)=>{
   if(msg.author.bot){
@@ -24,7 +24,8 @@ module.exports = async (Discord,bot,msg)=>{
     }else{
       bot.warns.set(msg.author.id,{'reason':'刷頻連結','times':1})
     }
-  await action(Discord,bot,msg)
+    await action(Discord,bot,msg)
+    return
   }else if(msgCtn.includes('.')){
     //token
     if(msgCtn.indexOf('.',msgCtn.indexOf('.')+1)-msgCtn.indexOf('.')===6){
@@ -36,18 +37,9 @@ module.exports = async (Discord,bot,msg)=>{
         }
         await action(Discord,bot,msg)
       }
-    }else{
-      await exp(msg,msg.author.id)
-        .then(async a=>{
-          if(a!==undefined){
-            await msg.guild.channels.fetch('926251048266530816')
-              .then(async chn=>{
-                await chn.send(`<@${msg.author.id}>，恭喜~你的彈藥量增加到了**${a['lv']}公升**\n多多訓練吧~\n放心，距離||~~流出來啦!!!~~||還遠得呢~💓`)
-              })
-          }
-        });
+      return
     }
-  }else{
+  }
     await exp(msg,msg.author.id)
         .then(async a=>{
           if(a!==undefined){
@@ -55,7 +47,8 @@ module.exports = async (Discord,bot,msg)=>{
               .then(async chn=>{
                 await chn.send(`<@${msg.author.id}>，恭喜~你的彈藥量增加到了**${a['lv']}公升**\n多多訓練吧~\n放心，距離||~~流出來啦!!!~~||還遠得呢~💓`)
               })
+          await role_update_action(msg);
           }
         }); //upgrade mention
-  }
+  
 }
