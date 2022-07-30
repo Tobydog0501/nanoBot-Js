@@ -14,7 +14,10 @@ module.exports = async (Discord,bot,msg)=>{
     const cmd = args.shift().toLowerCase();
     
     const command = bot.commands.get(cmd);
-    if(command) command.execute(bot,msg,args,Discord);
+    if(command) {
+      command.execute(bot,msg,args,Discord);
+      await msg.delete();
+    }
     return;
   }
   var msgCtn = msg.content.replace(" ","");

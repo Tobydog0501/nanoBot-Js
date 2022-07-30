@@ -12,6 +12,7 @@ module.exports = {
                 .setRequired(true))
     ,
     async execute(inter,Discord){
+      await inter.deferReply({ephemeral:true});
         var target = inter.options.get('成員').value.replace('<@!','').replace('>','');
         if(target.length!=18){
             inter.reply('這不是個Snowflake!');
@@ -59,6 +60,6 @@ module.exports = {
               await msg.pin();
             });
           });
-        inter.reply({content:"Finished",ephemeral:true});
+        inter.editReply({content:"Finished",ephemeral:true});
     }
 }

@@ -1,4 +1,5 @@
 const discordModals = require('discord-modals');
+const rpg_plugin = require('../../plugins/rpg_plugin');
 const { Modal, TextInputComponent, showModal } = discordModals;
 const uc = require('../pluginForEvents/updateChannel');
 
@@ -6,6 +7,7 @@ module.exports = async(Discord,bot,inter)=>{
     if(inter.isButton()){
     switch(inter.customId){
       case 'problem':
+        await inter.deferReply({ephemeral:true});
         let ebdd = new Discord.MessageEmbed()
           .setTitle('打開回報單！')
           .setDescription('請放心回報，本頻道僅**管理員和你**看得到唷。OuO\n**建議**：提供任何建議。\n**檢舉**：檢舉非法使用本伺服器的用戶。\n**回報**：回報伺服器出現的錯誤(Bug)。\n**上訴**：針對受到的處分上訴。')
@@ -43,7 +45,7 @@ module.exports = async(Discord,bot,inter)=>{
               await msg.pin();
             });
           });
-        inter.reply({content:"Finished",ephemeral:true});
+        inter.editReply({content:"Finished",ephemeral:true});
         break;
       case 'close':
         let closeEbd = new Discord.MessageEmbed()
@@ -135,8 +137,52 @@ module.exports = async(Discord,bot,inter)=>{
           });
         break;
 
+        case "ugs":
+          await inter.deferReply({ephemeral:true});
+          var rank = await rpg_plugin.rank(inter.member.id);
+          let guild = await bot.guilds.fetch('965034135926226985')
+          var a = await guild.members.fetch(inter.member.id);
+          // if(a){
+          //   await inter.editReply({content:`您已經在軍火倉庫了`,ephemeral:true});
+          //   break;
+          // }
+          
+          if(rank['rank']['ugs']){
+            inter.editReply({content:`您已經申請過了`,ephemeral:true});
+            break;
+          }
+          if(rank['rank']['lv']>=5){
+            // tell admin
+            inter.guild.channels.fetch('993330070301180014')
+              .then(async chn=>{
+                let ebd = new Discord.MessageEmbed()
+                  .setTitle('軍火倉庫加入請求')
+                  .setDescription(`${inter.member}要求加入軍火倉庫\n等級：${rank['rank']['lv']}`)
+                  .setColor('RANDOM')
+                  .setFooter({iconURL:inter.member.user.avatarURL(),text:`Requested by ${inter.user.tag}`})
+                let com = new Discord.MessageActionRow()
+                  .setComponents([
+                    new Discord.MessageButton()
+                      .setLabel('同意')
+                      .setStyle('SUCCESS')
+                      .setCustomId(`uok-${inter.member.id}`),
+                    new Discord.MessageButton()
+                      .setLabel('不同意')
+                      .setStyle('DANGER')
+                      .setCustomId(`udeny-${inter.member.id}`)
+                  ])
+                await rpg_plugin.write(null,{'user':inter.member.id,'ugs':true});
+                await chn.send({embeds:[ebd],components:[com]});
+                await inter.editReply({content:`已申請，請靜候管理員回復\n若申請通過，機器人將自動傳送邀請連結`,ephemeral:true})
+              })
+          }else{
+            await inter.editReply({content:'等級尚未達到5，請再加把勁!'});
+          }
+          break;
+      
+
       default:
-        var com = new Discord.MessageActionRow().setComponents([
+        let com = new Discord.MessageActionRow().setComponents([
                                  new Discord.MessageButton()
                                    .setCustomId(`dtt`)
                                    .setLabel('解除禁言')
@@ -177,6 +223,43 @@ module.exports = async(Discord,bot,inter)=>{
             await inter.message.edit({content:`執行者：<@${inter.member.id}>\n執行項目：禁言`,embeds:inter.message.embeds})
             await mem.timeout(10*60*1000,`執行者：${inter.member.id}`);
           })
+        }else if(inter.customId.startsWith('uok-')){
+          inter.deferReply({ephemeral:true});
+          let mem = await inter.guild.members.fetch(inter.customId.split('-')[1])
+          let comn = inter.message.components[0].toJSON().components;
+          let btn = comn.map(v=>{
+            v.disabled = true;
+            return new Discord.MessageButton(v)
+          })
+          let comm = new Discord.MessageActionRow().setComponents(btn);
+          let dmC = await mem.createDM().catch(async err=>{
+            await inter.editReply({content:'該成員不允許私訊',ephemeral:true})
+          })
+          let invite = await bot.guilds.fetch('965034135926226985').then(async guild=>await guild.invites.create(`965038679288594512`,{maxAge:0,maxUses:1,unique:true}))
+          await dmC.send(`您好，您已在剛才通過審查，此為軍火庫連結，請勿分享給他人，您只有這個連結可用\n${invite}`).catch(async err=>{
+            await inter.editReply({content:'該成員不允許私訊',ephemeral:true})
+          })
+          await inter.message.edit({content:`已被執行\n項目：同意加入\n更動者：${inter.member}`,embeds:inter.message.embeds,components:[comm]})
+          await inter.editReply({content:'完成'})
+          break;
+        }else if(inter.customId.startsWith('udeny-')){
+          inter.deferReply({ephemeral:true});
+          let mem = await inter.guild.members.fetch(inter.customId.split('-')[1])
+          let comn2 = inter.message.components[0].toJSON().components;
+          let btn2 = comn2.map(v=>{
+            v.disabled = true;
+            return new Discord.MessageButton(v)
+          })
+          let dmC = await mem.createDM().catch(async err=>{
+            await inter.editReply({content:'該成員不允許私訊',ephemeral:true})
+          })
+          await dmC.send(`您好，經過管理員的審查後，決議不同意您加入軍火庫，如有任何問題，請開啟回報區表單`).catch(async err=>{
+            await inter.editReply({content:'該成員不允許私訊',ephemeral:true})
+          })
+          let comm2 = new Discord.MessageActionRow().setComponents(btn2)
+          await inter.message.edit({content:`已被執行\n項目：不同意加入\n更動者：${inter.member}`,embeds:inter.message.embeds,components:[comm2]})
+          await inter.editReply({content:'完成'})
+          break;
         }
         break;
     }

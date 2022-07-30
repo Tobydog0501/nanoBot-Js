@@ -13,7 +13,7 @@ module.exports = {
         }
         if(ui[userId]===undefined){
             ui[userId] = {'lv':0,'exp':0,'totalExp':0,'lastMsg':[2022,6,2,12,12,12],'tasks':[{'type':undefined,'finish':false},{'type':undefined,'finish':false},{'type':undefined,'finish':false}],'lastTask':undefined}
-            await write(ui)
+            await module.exports.write(ui)
                 .catch(err=>{
                     console.error(err);
                 })
@@ -191,7 +191,7 @@ module.exports = {
         if(check2){
             ui[userId]['totalExp'] = await module.exports.expAmount(userId);
         }
-        await write(ui);
+        await module.exports.write(ui);
         return new Promise(res=>{
             if(check) res({'lv':ui[userId]['lv'],'exp':ui[userId]['exp']});
             else res(undefined);
@@ -290,19 +290,43 @@ module.exports = {
         });
     },
 
+    async write(w,w2=null){
+        if(!!w){
+            await repair();
+            var str = JSON.stringify(w)
+            await fsPromise.writeFile('./env.json',str)
+                .catch(err=>{
+                    return new Promise((res,rej)=>{
+                        rej(err);
+                    })
+                })
+            return new Promise(res=>res());
+        }else{
+            // w=null
+            if(!w2){
+                return new Promise((res,rej)=>{
+                    rej(`Please pass in parameter`)
+                })
+            }
+            if(!w2['user']&&!w2['ugs']){
+                return new Promise((res,rej)=>{
+                    rej(`Please pass in correct parameter\n{'user':userID,'ugs':T||F}`)
+                })
+            }
+            await repair();
+            ui[w2['user']]['ugs'] = w2['ugs']
+            var str = JSON.stringify(ui)
+            await fsPromise.writeFile('./env.json',str)
+                .catch(err=>{
+                    return new Promise((res,rej)=>{
+                        rej(err);
+                    })
+                })
+            return new Promise(res=>res());
+        }
+    },
+
     tasksLists:[]
 
 }
 
-async function write(w){
-    await repair();
-    var str = JSON.stringify(w)
-    await fsPromise.writeFile('./env.json',str)
-        .catch(err=>{
-            return new Promise((res,rej)=>{
-                rej(err);
-            })
-        })
-    return new Promise(res=>res());
-    
-}
