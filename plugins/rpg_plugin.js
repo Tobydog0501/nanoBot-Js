@@ -103,7 +103,7 @@ module.exports = {
         await module.exports.checkLevelUp(userId,set)
         var after = await module.exports.rank(userId);
         return new Promise(async res=>{
-            res({'before':before,'after':after});
+            res({'before':before,'after':after['rank']});
         })
     },
 
