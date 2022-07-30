@@ -142,10 +142,10 @@ module.exports = async(Discord,bot,inter)=>{
           var rank = await rpg_plugin.rank(inter.member.id);
           let guild = await bot.guilds.fetch('965034135926226985')
           var a = await guild.members.fetch(inter.member.id);
-          // if(a){
-          //   await inter.editReply({content:`您已經在軍火倉庫了`,ephemeral:true});
-          //   break;
-          // }
+          if(a){
+            await inter.editReply({content:`您已經在軍火倉庫了`,ephemeral:true});
+            break;
+          }
           
           if(rank['rank']['ugs']){
             inter.editReply({content:`您已經申請過了`,ephemeral:true});
