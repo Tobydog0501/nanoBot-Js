@@ -15,7 +15,7 @@ module.exports = async (Discord,bot,msg)=>{
     
     const command = bot.commands.get(cmd);
     if(command) {
-      command.execute(bot,msg,args,Discord);
+      await command.execute(bot,msg,args,Discord);
       await msg.delete();
     }
     return;
