@@ -12,7 +12,7 @@ module.exports = {
             })
         }
         if(ui[userId]===undefined){
-            ui[userId] = {'lv':0,'exp':0,'totalExp':0,'lastMsg':[2022,6,2,12,12,12],'tasks':[{'type':undefined,'finish':false},{'type':undefined,'finish':false},{'type':undefined,'finish':false}],'lastTask':undefined}
+            ui[userId] = {'lv':0,'exp':0,'totalExp':0,'lastMsg':[2022,6,2,12,12,12],'tasks':[{'type':undefined,'finish':false},{'type':undefined,'finish':false},{'type':undefined,'finish':false}],'lastTask':undefined,'wallet':0,'bank':0,'login':[2022,6,2],'work':[2022,6,2,10]}
             await module.exports.write(ui)
                 .catch(err=>{
                     console.error(err);
@@ -24,6 +24,36 @@ module.exports = {
                 });
         }
         
+    },
+
+    async actions(userId,type,init){
+        await module.exports.initial(userId);
+        var temp_ui = JSON.parse(fs.readFileSync('./env.json', 'utf-8'))[userId];
+        for(const i of type){   //i = {'k':key,'v':value,'act':'+'}
+            if(!temp_ui[i['k']]){
+                if(i['act'] != undefined) temp_ui[i['k']] = 0;
+                else temp_ui[i['k']] = i['v'];
+            }
+            if(init){
+                ui[userId] = temp_ui;
+            }else{
+                switch(i['act']){
+                    case '+':
+                        temp_ui[i['k']] += i['v'];
+                        break;
+                    case '-':
+                        if(temp_ui[i['k']]<i['v']) return new Promise((res,rej)=>rej('No enough stuff'))
+                        temp_ui[i['k']] -= i['v'];
+                        break;
+                    default:
+                        temp_ui[i['k']] = i['v'];
+                        break;
+                }
+                ui[userId] = temp_ui;
+            }
+        }
+        await module.exports.write(ui);
+        return new Promise(res=>res());
     },
 
     async rank(userId){  //read
@@ -265,8 +295,7 @@ module.exports = {
     },
 
     async roleUpdate(userId){
-        var rank = await module.exports.rank(userId);
-        rank = rank['rank'];
+        var rank = ui[userId];
         var ret_level = new Map();
         [2,5,8,11,15,18,20,23,27,30,35,40].forEach(v=>{
             if(rank['lv']>=v){
@@ -324,6 +353,68 @@ module.exports = {
                 })
             return new Promise(res=>res());
         }
+    },
+
+    async login(userId){
+        await module.exports.actions(userId,[{'k':'wallet','v':200,'act':'+'},{'k':'login','v':[2022,6,6]}],true);
+        var time = new Date(ui[userId]['login'][0],ui[userId]['login'][1],ui[userId]['login'][2]+1)
+        if(Date.now()>=time){
+            let da = new Date();
+            //success
+            await module.exports.actions(userId,[{'k':'wallet','v':200,'act':'+'},{'k':'login','v':[da.getFullYear(),da.getMonth(),da.getDate(),da.getHours()]}]);
+            await module.exports.write(ui);
+            return new Promise((res,rej)=>{
+                res(ui[userId]);
+            })
+        }else return new Promise((res,rej)=>{
+            rej('尚未達到一天');
+        })
+    },
+
+    async setMoney(userId,amount,act=undefined){
+        await module.exports.actions(userId,[{'k':'wallet','v':amount,'act':act}]);
+        return new Promise(res=>res(ui[userId]));
+    },
+
+    async deposit(userId,amount){
+        await module.exports.actions(userId,[{'k':'wallet','v':amount,'act':'-'},{'k':'bank','v':amount,'act':'+'}])
+            .catch(err=>{
+                return new Promise((res,rej)=>rej('沒有足夠金錢'));
+            })
+        return new Promise(res=>res(ui[userId]));
+    },
+
+    async withdraw(userId,amount){
+        await module.exports.actions(userId,[{'k':'wallet','v':amount,'act':'+'},{'k':'bank','v':amount,'act':'-'}])
+        .catch(err=>{
+            return new Promise((res,rej)=>rej('沒有足夠金錢'));
+        })
+        return new Promise(res=>res(ui[userId]));
+    },
+
+    async rob(userId){
+
+    },
+
+    async work(userId){
+        await module.exports.actions(userId,[{'k':'work','v':[2022,6,6,2]}],true)
+        let da = new Date();
+        var time = new Date(ui[userId]['work'][0],ui[userId]['work'][1],ui[userId]['work'][2],ui[userId]['work'][3])
+        if(Date.now()-time>=3*60*60*1000){
+            let mon = 100 + Math.floor(Math.random()*199)+1
+            await module.exports.actions(userId,[{'k':'wallet','v':mon,'act':'+'},{'k':'work','v':[da.getFullYear(),da.getMonth(),da.getDate(),da.getHours()]}])
+            return new Promise(res=>res(mon));
+        }else{
+            return new Promise((res,rej)=>rej());
+        }
+        
+    },
+
+    async checkMoney(userId){
+        await module.exports.actions(userId,[{'k':'wallet','v':0},{'k':'bank','v':0}],true);
+        return new Promise(res=>{
+            res(ui[userId])
+        })
     },
 
     tasksLists:[]
