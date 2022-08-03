@@ -21,7 +21,7 @@ module.exports = async (Discord,bot,msg)=>{
     return;
   }
   var msgCtn = msg.content.replace(" ","");
-  if(msgCtn.replace("cl","d").includes('discord')&&msgCtn.includes('http')&&msgCtn.includes('discord.gg')&&!msg.member.permissions.has('MANAGE_ROLES')){
+  if(msgCtn.replace("cl","d").includes('discord')&&msgCtn.includes('http')&&msgCtn.includes('discord.gg')&&!msg.member.permissions.has('MANAGE_ROLES')&&!msg.member.roles.cache.has(role=>role.id=='1004330438514458624')){
     if(bot.warns.some(times=>times)){
       bot.warns.set(msg.author.id,{'reason':'刷頻連結','times':bot.warns.get(msg.author.id).times+1})
     }else{
