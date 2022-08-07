@@ -11,4 +11,4 @@ replit.nix
 public/
 src/
 keep_alive 
-rpg_plugin_test
+rpg_plugin_test.js
