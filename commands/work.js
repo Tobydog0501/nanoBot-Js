@@ -13,6 +13,7 @@ module.exports = {
                     .setThumbnail(msg.author.avatarURL()) //被搜尋者頭像
                     .setTimestamp()
                     .setColor('RANDOM')
+                    .setFooter({text:`Request by ${msg.author.tag}`,iconURL:msg.author.avatarURL()})
                 await msg.reply({embeds:[ebd]});
             })
             .catch(async (err)=>{

@@ -16,6 +16,7 @@ module.exports = {
                     .setTitle('存款成功')
                     .setDescription(`帳戶錢包：${a['wallet']}\n帳戶銀行：${a['bank']}`)
                     .setThumbnail(msg.author.avatarURL()) //被搜尋者頭像
+                    .setFooter({text:`Request by ${msg.author.tag}`,iconURL:msg.author.avatarURL()})
                     .setTimestamp()
                     .setColor('RANDOM')
                 await msg.reply({embeds:[ebd]});

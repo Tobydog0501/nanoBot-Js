@@ -21,6 +21,7 @@ module.exports = {
                             .setDescription(`目前等級：${ui['rank']['lv']}\n經驗值：${ui['rank']['exp']}\n總經驗值：${ui['rank']['totalExp']}\n\n等級進度：||${ui['per']} (${ui['req']})||`)   //可能要用%
                             .setThumbnail(ava) //被搜尋者頭像
                             .setColor('RANDOM')
+                            .setFooter({text:`Request by ${msg.author.tag}`,iconURL:msg.author.avatarURL()})
                         await Emsg.edit({content:'獲取資料成功!',embeds:[embed]});
                         await r_u_ac(msg,userId);
                     })
