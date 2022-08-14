@@ -38,7 +38,7 @@ module.exports = {
           {name:`帳戶金錢`,value:`錢包：${a['wallet']}\n銀行：${a['bank']}`,inline:false}
         ])
         .setThumbnail(member.user.avatarURL())
-        .setFooter({text:`Request by ${msg.author.tag}`,iconURL:msg.author.avatarURL()})
+        .setFooter({text:`Requested by ${msg.author.tag}`,iconURL:msg.author.avatarURL()})
         .setColor('RANDOM')
       await msg.reply({embeds:[ebd]})
     }
