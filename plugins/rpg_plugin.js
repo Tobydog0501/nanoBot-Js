@@ -1,7 +1,9 @@
 const fs = require('fs');
 const fsPromise = require('fs/promises');
+const dungeons = require('./rpgs/dungeons');
 var ui = JSON.parse(fs.readFileSync('./env.json', 'utf-8'));
 const repair = require("./repair");
+const adventures = require('./rpgs/adventure');
 
 module.exports = {
 
@@ -417,7 +419,31 @@ module.exports = {
         })
     },
 
-    tasksLists:[]
+    async dungeon(userId,channelId,args){
+        const dun = new dungeons(channelId);
+        switch(args){
+            case 'start':
+                dun.start();
+                break;
+            case 'end':
+                dun.end();
+                break;
+        }
+        return new Promise(res=>res());
+    },
+
+    async adventure(userId,channelId,args){
+        const adv = new adventures(channelId);
+        switch(args){
+            case 'start':
+                adv.start();
+                break;
+            case 'end':
+                adv.end();
+                break;
+        }
+        return new Promise(res=>res());
+    },
 
 }
 
