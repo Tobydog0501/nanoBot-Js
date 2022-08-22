@@ -1,5 +1,4 @@
 const plu = require('../../plugins/rpg_plugin.js');
-const uc = require('../pluginForEvents/updateChannel');
 
 module.exports = async (Discord,bot,modal)=>{
     switch(modal.customId){
@@ -14,7 +13,6 @@ module.exports = async (Discord,bot,modal)=>{
           await modal.member.roles.add(role);
         })
         await modal.reply({content:"認證完成!",ephemeral: true});
-        await uc(modal.member.guild);
         break;
       case 'rename':
         await modal.channel.edit({name:`${modal.getTextInputValue('rename-input')}-${modal.channel.id.slice(-4)}`});

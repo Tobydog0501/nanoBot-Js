@@ -7,11 +7,11 @@ module.exports = async function(msg,userId=undefined){
     for (const i of ret['lv'].entries()){
       if(i[1]){
         if(!msg.member.roles.cache.some(v=>v.id==roleList[time])){
-          await msg.member.roles.add(roleList[time])
+          msg.member.roles.add(roleList[time])
         }
       }else{
         if(msg.member.roles.cache.some(v=>v.id==roleList[time])){
-          await msg.member.roles.remove(roleList[time])
+          msg.member.roles.remove(roleList[time])
         }
       }
       time += 1;
@@ -21,11 +21,11 @@ module.exports = async function(msg,userId=undefined){
     for (const topRole of ret['rank'].entries()){
       if(topRole[1]){
         if(!msg.member.roles.cache.some(v=>v.id==roleList2[time])){
-          await msg.member.roles.add(roleList2[time])
+          msg.member.roles.add(roleList2[time])
         }
       }else{
         if(msg.member.roles.cache.some(v=>v.id==roleList2[time])){
-          await msg.member.roles.remove(roleList2[time])
+          msg.member.roles.remove(roleList2[time])
         }
       }
       time += 1;

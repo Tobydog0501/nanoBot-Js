@@ -1,6 +1,3 @@
-const uc = require('../pluginForEvents/updateChannel');
-
-
 module.exports = async(Discord,bot,member)=>{
   if(member.guild.id != '926089413933539359'){
     return
@@ -18,5 +15,4 @@ module.exports = async(Discord,bot,member)=>{
     .setColor([0,0,0]);
     await channel.send({embeds:[embed]});
   });  //channel的ID
-  await uc(member.guild);
 }

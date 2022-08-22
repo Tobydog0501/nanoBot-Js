@@ -1,7 +1,6 @@
 const discordModals = require('discord-modals');
 const rpg_plugin = require('../../plugins/rpg_plugin');
 const { Modal, TextInputComponent, showModal } = discordModals;
-const uc = require('../pluginForEvents/updateChannel');
 
 module.exports = async(Discord,bot,inter)=>{
     if(inter.isButton()){
@@ -305,7 +304,6 @@ module.exports = async(Discord,bot,inter)=>{
         await inter.member.roles.add(inter.values[i]);
       }
       await inter.editReply({content:'已成功新增身分組',ephemeral:true});
-      if(check) await uc(inter.member.guild);
     }
     }else if(inter.isCommand()||inter.isContextMenu()){
       const slashCommand = bot.commands.get(inter.commandName)
