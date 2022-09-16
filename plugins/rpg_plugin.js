@@ -394,8 +394,28 @@ module.exports = {
         return new Promise(res=>res(ui[userId]));
     },
 
-    async rob(userId){
-
+    async rob(robber,userId){
+        let money = await module.exports.checkMoney(userId);
+        let money2 = await module.exports.checkMoney(robber);
+        if(money['wallet']==0||money2['wallet']>1000){
+            return new Promise((res,rej)=>{
+                rej(money['wallet']==0?"對方沒辦法被搶":"你沒有搶錢的資格");
+            })
+        }else{
+            let success = Math.random()*3<=1?true:false;
+            if(success){
+                await module.exports.setMoney(robber,money['wallet'],'+');
+                await module.exports.setMoney(userId,0);
+                return new Promise((res)=>{
+                    res([true,money["wallet"]]);
+                })
+            }else{
+                await module.exports.setMoney(robber,0);
+                return new Promise((res)=>{
+                    res([false]);
+                })
+            }
+        }
     },
 
     async work(userId){
