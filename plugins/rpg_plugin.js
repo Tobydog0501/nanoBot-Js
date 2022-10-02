@@ -97,11 +97,10 @@ module.exports = {
                         totalExp += 10;
                     }else{  //only msg
                         //clean emoji
-                        var ctn = msg.cleanContent;
-                        // await module.exports.checkEmoji(ctn)
-                        //     .then(nCtn=>{
-                        //         totalExp += nCtn['content'].length>20?20:nCtn['content'].length;
-                        // });   
+                        await module.exports.checkEmoji(msg.content)
+                            .then(nCtn=>{
+                                totalExp += nCtn['content'].length>20?20:nCtn['content'].length;
+                        });   
                     }
                 })
 
@@ -171,13 +170,14 @@ module.exports = {
     },
 
     async checkEmoji(ctn){  //return Promise
-        return;
         var emojis = 0;
-        while(ctn.includes('<:')){    //len = 18
-            if(ctn.indexOf(':',ctn.indexOf(':'))-ctn.indexOf('>')===18||ctn.indexOf(':',ctn.indexOf(':'))-ctn.indexOf('>')===19){
-                ctn.replace(ctn.slice(ctn.indexOf('<:'),ctn.indexOf(':')+19),'x');  //19 might be wrong
-                emojis += 1;
-            }
+        while(ctn.match(/<:[0-z]+:[0-9]+>/g)){    //len = 18
+            ctn.replace(/<:[0-z]+:[0-9]+>/g,"x");
+            emojis += 1;
+        }
+        while(ctn.match(/<:[0-z]+:>/g)){
+            ctn.replace(/<:[0-z]+:>/g,"x");
+            emojis += 1
         }
         return new Promise(res=>{
             res({'content':ctn,'emojis':emojis});
