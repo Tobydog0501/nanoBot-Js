@@ -11,8 +11,8 @@ module.exports = async(Discord,bot,member)=>{
   member.guild.channels.fetch('926091412829765673').then(async channel=>{
     let embed = new Discord.MessageEmbed()
     .setTitle(`**Hola~${member.user.tag}~歡迎你加入我們香香的~**`)  //標題
-    .setDescription(`<@${member.id}>，別忘了去認證唷`)  //蘑菇自己改喔~
+    .setDescription(`<@${member.id}>，別忘了去認證唷`)
     .setColor([0,0,0]);
-    await channel.send({embeds:[embed]});
+    channel.send({embeds:[embed]});
   });  //channel的ID
 }
