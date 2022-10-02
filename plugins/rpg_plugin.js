@@ -175,6 +175,10 @@ module.exports = {
             ctn = ctn.replace(/<:[0-z]+:[0-9]+>/g,"x");
             emojis += 1;
         }
+        while(ctn.match(/<:[0-z]+:>/g)){    //len = 18
+            ctn = ctn.replace(/<:[0-z]+:>/g,"x");
+            emojis += 1;
+        }
         return new Promise(res=>{
             res({'content':ctn,'emojis':emojis});
         })
