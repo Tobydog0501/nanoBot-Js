@@ -170,17 +170,14 @@ module.exports = {
     },
 
     async checkEmoji(ctn){  //return Promise
-        var emojis = 0;
         while(ctn.match(/<:[0-z]+:[0-9]+>/g)){    //len = 18
             ctn = ctn.replace(/<:[0-z]+:[0-9]+>/g,"x");
-            emojis += 1;
         }
         while(ctn.match(/<:[0-z]+:>/g)){    //len = 18
-            ctn = ctn.replace(/<:[0-z]+:>/g,"x");
-            emojis += 1;
+            ctn = ctn.replace(/<:[0-z]+:>/g,"");
         }
         return new Promise(res=>{
-            res({'content':ctn,'emojis':emojis});
+            res({'content':ctn});
         })
 
     },
