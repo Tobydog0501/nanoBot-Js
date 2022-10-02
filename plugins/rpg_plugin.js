@@ -172,7 +172,7 @@ module.exports = {
     async checkEmoji(ctn){  //return Promise
         var emojis = 0;
         while(ctn.match(/<:[0-z]+:[0-9]+>/g)){    //len = 18
-            ctn.replace(/<:[0-z]+:[0-9]+>/g,"x");
+            ctn = ctn.replace(/<:[0-z]+:[0-9]+>/g,"x");
             emojis += 1;
         }
         return new Promise(res=>{
