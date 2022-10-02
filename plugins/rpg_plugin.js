@@ -98,10 +98,10 @@ module.exports = {
                     }else{  //only msg
                         //clean emoji
                         var ctn = msg.cleanContent;
-                        await module.exports.checkEmoji(ctn)
-                            .then(nCtn=>{
-                                totalExp += nCtn['content'].length>20?20:nCtn['content'].length;
-                        });   
+                        // await module.exports.checkEmoji(ctn)
+                        //     .then(nCtn=>{
+                        //         totalExp += nCtn['content'].length>20?20:nCtn['content'].length;
+                        // });   
                     }
                 })
 
@@ -171,6 +171,7 @@ module.exports = {
     },
 
     async checkEmoji(ctn){  //return Promise
+        return;
         var emojis = 0;
         while(ctn.includes('<:')){    //len = 18
             if(ctn.indexOf(':',ctn.indexOf(':'))-ctn.indexOf('>')===18||ctn.indexOf(':',ctn.indexOf(':'))-ctn.indexOf('>')===19){
