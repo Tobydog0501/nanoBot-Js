@@ -1,4 +1,4 @@
- const plu = require('../plugins/rpg_plugin')
+const plu = require('../plugins/rpg_plugin')
 const r_u_ac = require('../events/pluginForEvents/roleUpdate')
 
 module.exports = {
