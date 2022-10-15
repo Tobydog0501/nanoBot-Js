@@ -4,11 +4,13 @@ const dungeons = require('./rpgs/dungeons');
 var ui = JSON.parse(fs.readFileSync('./env.json', 'utf-8'));
 const repair = require("./repair");
 const adventures = require('./rpgs/adventure');
+const IDTYPE = new RegExp(/\d{18,}/)
+
 
 module.exports = {
 
     async initial(userId){ //reset
-        if(userId.length!=18&&userId.length!=19||typeof(parseInt(userId))==NaN){
+        if(!IDTYPE.test(userId)){   //Check if userId is legal
             return new Promise((res,rej)=>{
                 rej(`Error: user id isn't a snowflake`);
             })
@@ -75,35 +77,28 @@ module.exports = {
     async exp(msg,userId){   //earn exp    //return Promise
         var totalExp = 0;
         await module.exports.initial(userId);
-        await module.exports.checkAttachments(msg)
-            .then(att=>{
-                att.forEach((v,k)=>{
-                if(v!==undefined){
-                    switch(v){
-                        case 'image':
-                            totalExp += 10;
-                            break;
-                        case 'video':
-                            totalExp += 35;
-                            break;
-                    }
+        msg.attachments.forEach(v=>{
+            if(v!==undefined){
+                let a = v.contentType.split('/')[0]
+                if(a=="image"){
+                    totalExp += 10;
+                }else{
+                    totalExp += 35;
                 }
-            })});
+            }
+        })
         var time = new Date(ui[userId]['lastMsg'][0],ui[userId]['lastMsg'][1],ui[userId]['lastMsg'][2],ui[userId]['lastMsg'][3],ui[userId]['lastMsg'][4],ui[userId]['lastMsg'][5])
         if(Date.now()-time>=10*1000){   //msg exp (1:1)
-            await module.exports.checkURL(msg)
-                .then(async url=>{
-                    if(url){
-                        totalExp += 10;
-                    }else{  //only msg
-                        //clean emoji
-                        await module.exports.checkEmoji(msg.content)
-                            .then(nCtn=>{
-                                totalExp += nCtn['content'].length>20?20:nCtn['content'].length;
-                        });   
-                    }
-                })
-
+            if(/https?:\/\/.+/gm.test(msg.content)){  //check url
+                msg = msg.replace(/https?:\/\/.+/,"");
+                totalExp += 10;
+            }else{  //only msg
+                //check emoji
+                await module.exports.checkEmoji(msg.content)
+                    .then(nCtn=>{
+                        totalExp += nCtn['content'].length>20?20:nCtn['content'].length;
+                });   
+            }
             const d = new Date();
             ui[msg.author.id]['lastMsg'] = [d.getFullYear(),d.getMonth(),d.getDate(),d.getHours(),d.getMinutes(),d.getSeconds()];
         }
