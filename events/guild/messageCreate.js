@@ -20,7 +20,7 @@ module.exports = async (Discord,bot,msg)=>{
       await msg.reply(`我好像沒有這個指令欸...`)
     }
     return;
-  }else if(/(?=^[^http])(?=.*[a-z])(?=.*[A-Z])(?=.*\d)\b[^\.]*\.[^\.]*\.[^\.]*[\n|\b]/mg.test(msg.content)){
+  }else if(/(?=^[^http])(?=.*[a-z])(?=.*[A-Z])(?=.*\d)\b[^\.]*\.[^\.]*\.[^\.]*[\n|\b]/gm.test(msg.content)){
     //Discord bot TOKEN
     let chn = await msg.guild.channels.fetch('1020521950449246268');
     msg.member.timeout(1000*60*60*24,'傳送TOKEN');
