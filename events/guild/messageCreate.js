@@ -28,23 +28,17 @@ module.exports = async (Discord,bot,msg)=>{
       .setTitle('警告紀錄')
       .setDescription(`已在<#${msg.channel.id}>封鎖一則訊息，傳送者<@${msg.author.id}>\n違規內容：傳送疑似Token訊息`)
       .setColor([255,0,0])
-      .setFields([
-        {name:"訊息內容",value:msg.content}
-      ])
     chn.send({content:`<@${msg.author.id}>，Discord之規定不允許傳送Token，如有任何問題請詢問管理員`,embeds:[ebd]});
     msg.delete();
     return;
   }else if(/https:\/\/discord.gg\/.*/gm.test(msg.content)){
     let chn = await msg.guild.channels.fetch('1020521950449246268');
-    msg.member.timeout(1000*10,'傳送連結');
+    msg.member.timeout(1000*60,'傳送連結');
     let ebd = new Discord.MessageEmbed()
       .setTitle('警告紀錄')
       .setDescription(`已在<#${msg.channel.id}>封鎖一則訊息，傳送者<@${msg.author.id}>\n違規內容：傳送DC群組邀請連結`)
       .setColor([255,0,0])
-      .setFields([
-        {name:"訊息內容",value:msg.content}
-      ])
-    chn.send({content:`<@${msg.author.id}>，本群之規定不允許傳送DC邀請連結，如有任何問題請詢問管理員`,embeds:[ebd]});
+   chn.send({content:`<@${msg.author.id}>，本群之規定不允許傳送DC邀請連結，如有任何問題請詢問管理員`,embeds:[ebd]});
     msg.delete();
     return;
   }
