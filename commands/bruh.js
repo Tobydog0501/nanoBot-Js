@@ -3,14 +3,14 @@ module.exports = {
   description: "測試用啦",
   category: "test",
   async execute(bot, msg, args, Discord) {
-    if (msg.author.id != '606668363531288577')return;
+    if (msg.author.id != '606668363531288577') return;
     let menu = new Discord.MessageActionRow()
       .setComponents([
         new Discord.MessageSelectMenu()
           .setCustomId('specialRoles')
           .setOptions([
             { label: '深夜食堂門票', emoji: "<:Gura3:926268631522877461>", value: '926262190619643925', description: '解鎖充滿可愛天竺鼠車車的票' },
-            { label: '黑暗食堂通行證', emoji: "<:Gura1:926268631581605938>", value: '926262352838529055', description: '這裡的天竺鼠車車比較可怕' },
+            { label: '地下酒窖通行', emoji: "<:Gura1:926268631581605938>", value: '926262352838529055', description: '這裡的天竺鼠車車比較深奧' },
             { label: '你就是封弊者!', emoji: "🍻", value: '1003645219012624435', description: '解鎖公測區域，可以參與伺服器不穩定功能的公測' }
           ])
           .setMinValues(1)
