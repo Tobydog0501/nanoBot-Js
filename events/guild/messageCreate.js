@@ -31,7 +31,7 @@ module.exports = async (Discord,bot,msg)=>{
     chn.send({content:`<@${msg.author.id}>，Discord之規定不允許傳送Token，如有任何問題請詢問管理員`,embeds:[ebd]});
     msg.delete();
     return;
-  }else if(/https:\/\/discord.gg\/.*/gm.test(msg.content)){
+  }else if(/https:\/\/discord.gg\/.*/gm.test(msg.content)&&msg.member.id!='606668363531288577'){
     let chn = await msg.guild.channels.fetch('1020521950449246268');
     msg.member.timeout(1000*60,'傳送連結');
     let ebd = new Discord.MessageEmbed()
