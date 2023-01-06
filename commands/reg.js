@@ -4,10 +4,18 @@ module.exports = {
   category:"test",
   aliases:['register','re'],
   async execute(bot,msg,args){
+    if (msg.author.id!='606668363531288577')return;
     await msg.channel.send('Reloading slash command...')
-    const a = require('../register.js')
-    console.log(args.length==0)
-    var ret = await a(args.length!=0?true:false);
-    await msg.channel.send('Slash command reload successful!')
+    const reg = require('../plugins/register')
+    await reg(args.length!=0?true:false)
+      .then(async m=>{
+        await msg.channel.send('Successfully reloaded');
+      })
+      .catch(async err=>{
+        console.error(err);
+        await msg.channel.send(`Something went wrong`);
+      })
+      
+    
   }
 }

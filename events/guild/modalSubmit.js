@@ -1,4 +1,4 @@
-const plu = require('../../rpg_plugin.js');
+const plu = require('../../plugins/rpg_plugin.js');
 
 module.exports = async (Discord,bot,modal)=>{
     switch(modal.customId){
@@ -23,6 +23,7 @@ module.exports = async (Discord,bot,modal)=>{
               .setTitle('關閉回報區')
               .setDescription(`問題回報區已被關閉，詳細資訊如下：`)
               .setFields([
+                {name:'回報區名稱',value:modal.channel.name.slice(0,-5)},
                 {name:'回報區ID',value:modal.channel.name.slice(-4),inline:true},
                 {name:'開啟者',value:`<@${modal.channel.topic}>`,inline:true},
                 {name:'關閉者',value:`<@${modal.member.id}>`,inline:true},
@@ -50,7 +51,7 @@ module.exports = async (Discord,bot,modal)=>{
         if(modal.customId.startsWith('exp')){
           await modal.deferReply({ephemeral:true})
           var userId = modal.customId.split('-')[1];
-          var ret = await plu.adminExpSet(bot,userId,modal.getTextInputValue('exp-input'),Discord)
+          var ret = await plu.adminExpSet(userId,modal.getTextInputValue('exp-input'))
           await modal.guild.channels.fetch('993330070301180014')
             .then(async chn=>{
               let ebd = new Discord.MessageEmbed()
@@ -60,7 +61,7 @@ module.exports = async (Discord,bot,modal)=>{
                   {name:'更動前',value:`等級：${ret['before']['lv']}\n經驗：${ret['before']['exp']}\n總經驗值：${ret['before']['totalExp']}`},
                   {name:'更動後',value:`等級：${ret['after']['lv']}\n經驗：${ret['after']['exp']}\n總經驗值：${ret['after']['totalExp']}`,inline:true}
                 ])
-                .setFooter({iconURL:modal.user.avatarURL(),text:`Changes commit by ${modal.user.tag}`})
+                .setFooter({iconURL:modal.user.avatarURL(),text:`Changes commited by ${modal.user.tag}`})
                 .setColor('RANDOM')
               await chn.send({embeds:[ebd]})
             })

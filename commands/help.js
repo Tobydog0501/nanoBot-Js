@@ -3,6 +3,7 @@ module.exports = {
   category:"test",
   description:"取得幫助",
   async execute(bot,msg,args,Discord){
+    return
     var dict = {slashCommands:[],commands:[]};
     var cates = [];
     

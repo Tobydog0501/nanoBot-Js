@@ -1,5 +1,5 @@
-const plu = require('../rpg_plugin')
-
+const plu = require('../plugins/rpg_plugin')
+const r_u_ac = require('../events/pluginForEvents/roleUpdate')
 
 module.exports = {
     name:'top',
@@ -24,6 +24,7 @@ module.exports = {
                             .setTimestamp()
                             .setFooter({iconURL:msg.author.avatarURL(),text:`Request by ${msg.author.tag}`})
                         await msg.reply({embeds:[embed]});
+                        await r_u_ac(msg)
                     }catch(e){
                         console.error(e)
                     }
@@ -33,6 +34,7 @@ module.exports = {
             await plu.tops(null,user)
                 .then(async rank=>{
                     await msg.reply(`使用者<@${user}>排名：${rank}`)
+                    await r_u_ac(msg,user);
                 })
                 .catch(async err=>{
                     await msg.reply(err);

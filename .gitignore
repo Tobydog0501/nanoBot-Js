@@ -1,4 +1,16 @@
 .env
 node_modules
 env.json
+backup.json
 token.json
+tasks.json
+.replit
+replit.nix
+.glitchdotcom.json
+.node-gyp
+public/
+src/
+keep_alive 
+rpg_plugin_test.js
+shop.json
+serverEnv.json

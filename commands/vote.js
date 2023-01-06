@@ -3,7 +3,7 @@ module.exports = {
     description:"測試用啦",
     category:"test",
     async execute(bot,msg,args,Discord){
-
+        if (msg.author.id!='606668363531288577')return;
         let meun = new Discord.MessageActionRow()
         .setComponents([
             new Discord.MessageSelectMenu()
