@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 
 module.exports = {
   data:new SlashCommandBuilder()
@@ -43,9 +43,10 @@ module.exports = {
       await inter.reply({content:'請選擇類別',ephemeral:true})
       return;
     }
-    var removeList = roleList.filter(role=>inter.member.roles.cache.some(roles=>roles==role))
-    for(var role of removeList){
-      await inter.member.roles.remove(role);
+    var removeList = inter.member.roles.cache
+    for(var role of roleList){
+      if(role in removeList)
+        await inter.member.roles.remove(role);
     }
     await inter.reply({content:'已經移除所有身分組',ephemeral:true})
   }

@@ -1,18 +1,12 @@
 const fs = require('fs');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-const token = process.env.tkn
 
 const commands = [];
 
-
-// Place your client and guild ids here
-const clientId = '926255596129382430';
-const guildId = '926089413933539359';
-
 module.exports = (bot,Discord) =>{
   const SlashcommandFiles = fs.readdirSync('./slashCommands/').filter(file => file.endsWith('.js'));
+  const buttons = fs.readdirSync('./buttons/').filter(file => file.endsWith('.js'));
   const commandFiles = fs.readdirSync('./commands/').filter(file=>file.endsWith('.js'));
+  const modals = fs.readdirSync('./modals/').filter(file=>file.endsWith('.js'));
   for (const file of SlashcommandFiles) {
     const command = require(`../slashCommands/${file}`);
     commands.push(command.data.toJSON());
@@ -29,6 +23,23 @@ module.exports = (bot,Discord) =>{
           bot.commands.set(aliases,command);
         }
       }
+    }else{
+      continue;
+    }
+  }
+
+  for(const file of buttons){
+    const command = require(`../buttons/${file}`);
+    if(command.name){
+      bot.buttons.set(command.name,command);
+    }else{
+      continue;
+    }
+  }
+  for(const file of modals){
+    const command = require(`../modals/${file}`);
+    if(command.name){
+      bot.modals.set(command.name,command);
     }else{
       continue;
     }
