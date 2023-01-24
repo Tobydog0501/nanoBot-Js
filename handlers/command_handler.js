@@ -7,6 +7,8 @@ module.exports = (bot,Discord) =>{
   const buttons = fs.readdirSync('./buttons/').filter(file => file.endsWith('.js'));
   const commandFiles = fs.readdirSync('./commands/').filter(file=>file.endsWith('.js'));
   const modals = fs.readdirSync('./modals/').filter(file=>file.endsWith('.js'));
+  const menus = fs.readdirSync('./selectMenus/').filter(file=>file.endsWith('.js'));
+
   for (const file of SlashcommandFiles) {
     const command = require(`../slashCommands/${file}`);
     commands.push(command.data.toJSON());
@@ -44,4 +46,14 @@ module.exports = (bot,Discord) =>{
       continue;
     }
   }
+
+  for(const file of menus){
+    const command = require(`../selectMenus/${file}`);
+    if(command.name){
+      bot.menus.set(command.name,command);
+    }else{
+      continue;
+    }
+  }
+
 }

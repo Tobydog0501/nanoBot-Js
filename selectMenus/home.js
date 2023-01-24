@@ -22,16 +22,17 @@ module.exports = {
                 { label: '需要抖S找我唷~', emoji: "🦯", value: '926272372288393247', description: '需要抖S快來找我!' },
                 { label: '需要抖M找我唷~', emoji: "🛡️", value: '926272406794960906', description: '需要抖M快來找我!' },
             )
-            .setMinValues(1),
+            .setMinValues(1)
+            .setMaxValues(14),
 
     async execute(inter,bot,Discord){
         await inter.deferReply({ephemeral:true});
         let roles = ['926263379331514368', '926272265069412362', '1001401223762690088', '926272273835520110', '926272274556932116', '926272274909237270', '926272275471274046', '1001401869521915904', '1001401868775329852', '1001401867751927898', '926272371583774730', '1001401866732703774', '926272372288393247', '926272406794960906'];
         for(let role of roles){
-            if(!role in inter.values){
-                await inter.member.roles.remove(role);
+            if(!inter.values.includes(role)){
+                inter.member.roles.remove(role);
             }else{
-                await inter.member.roles.add(role);
+                inter.member.roles.add(role);
             }
         }
         await inter.editReply({content:'已成功新增身分組',ephemeral:true});

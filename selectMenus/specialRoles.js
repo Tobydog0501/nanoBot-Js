@@ -17,10 +17,10 @@ module.exports = {
         await inter.deferReply({ephemeral:true});
         let roles = ["926262190619643925","926262352838529055","1003645219012624435"];
         for(let role of roles){
-            if(!role in inter.values){
-                await inter.member.roles.remove(role);
+            if(!inter.values.includes(role)){
+                inter.member.roles.remove(role);
             }else{
-                await inter.member.roles.add(role);
+                inter.member.roles.add(role);
             }
         }
         await inter.editReply({content:'已成功新增身分組',ephemeral:true});

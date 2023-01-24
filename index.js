@@ -30,6 +30,7 @@ const bot = new Client({
     bot.commands = new Discord.Collection();
     bot.events = new Discord.Collection();
     bot.buttons = new Discord.Collection();
+    bot.menus = new Discord.Collection();
     bot.modals = new Discord.Collection();
     ['command_handler','event_handler'].forEach(handler=>{
       require(`./handlers/${handler}`)(bot,Discord);
