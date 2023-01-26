@@ -1,5 +1,6 @@
 const { checkMoney } = require('../plugins/rpg_plugin');
 const plu = require('../plugins/rpg_plugin');
+const { PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name:"userinfo",
@@ -10,7 +11,7 @@ module.exports = {
       if(!args[0]){
         //author ui
         var member = msg.member;
-      }else if(args[0].replace('<@','').replace('>','').length==18){
+      }else if(args[0].replace('<@','').replace('>','').length==18){  //regExp
         try{
           var member = await msg.guild.members.fetch(args[0].replace('<@','').replace('>',''))
         }catch{
@@ -26,7 +27,7 @@ module.exports = {
       const rank = await plu.rank(member.id);
       var date = member.joinedAt;
       var a = await checkMoney(member.id);
-      let ebd = new Discord.MessageEmbed()
+      let ebd = new EmbedBuilder()
         .setTitle(`使用者資訊`)
         .setDescription(`關於${member}`)
         .setFields([

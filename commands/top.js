@@ -1,5 +1,6 @@
 const plu = require('../plugins/rpg_plugin')
-const r_u_ac = require('../events/pluginForEvents/roleUpdate')
+const r_u_ac = require('../events/pluginForEvents/roleUpdate');
+const { PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name:'top',
@@ -17,7 +18,7 @@ module.exports = {
                             str += `#${i} | <@${lists[i-1]['userId']}>XP:${lists[i-1]['rank']['totalExp']}\n`
                         }
                         str += '✨更多?```n/top page```\n✨查詢特定使用者排名?```n/top user(mention or id)```'
-                        let embed = new Discord.MessageEmbed()
+                        let embed = new EmbedBuilder()
                             .setTitle('排行榜查詢')
                             .setDescription(str)
                             .setColor('RANDOM')

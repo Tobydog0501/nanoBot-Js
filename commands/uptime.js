@@ -4,6 +4,7 @@ module.exports = {
     description:"取得機器人上線時間",
     aliases:['ut','up'],
     async execute(bot,msg,args,Discord){
+        return
         const uptimeDays = Math.floor(bot.uptime/(1000*60*60*24));
         const uptimeHour = Math.floor(bot.uptime/(1000*60*60))-uptimeDays*24;
         const uptimeMin = Math.floor(bot.uptime/(1000*60))-uptimeHour*60;

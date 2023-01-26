@@ -1,3 +1,4 @@
+const { PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 const plu = require('../plugins/rpg_plugin');
 const r_u_ac = require('../events/pluginForEvents/roleUpdate')
 
@@ -16,7 +17,7 @@ module.exports = {
                 await msg.guild.members.fetch(userId)
                     .then(async user=>{
                         let ava = await user.user.avatarURL();
-                        let embed = new Discord.MessageEmbed()
+                        let embed = new EmbedBuilder()
                             .setTitle('等級查詢')
                             .setDescription(`目前等級：${ui['rank']['lv']}\n經驗值：${ui['rank']['exp']}\n總經驗值：${ui['rank']['totalExp']}\n\n等級進度：||${ui['per']} (${ui['req']})||`)   //可能要用%
                             .setThumbnail(ava) //被搜尋者頭像

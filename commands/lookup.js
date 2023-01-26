@@ -1,3 +1,4 @@
+const { PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 const { checkMoney } = require("../plugins/rpg_plugin")
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
     async execute(bot,msg,args,Discord){
         await checkMoney(msg.author.id)
             .then(async a=>{
-                let ebd = new Discord.MessageEmbed()
+                let ebd = new EmbedBuilder()
                     .setTitle('帳戶金錢')
                     .setDescription(`使用者${msg.member}帳戶資訊\n帳戶錢包：${a['wallet']}元\n帳戶銀行：${a['bank']}元`)
                     .setThumbnail(msg.author.avatarURL()) //被搜尋者頭像

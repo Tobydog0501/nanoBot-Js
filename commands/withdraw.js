@@ -1,4 +1,5 @@
 const { withdraw } = require("../plugins/rpg_plugin")
+const { PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name:'withdraw',
@@ -12,7 +13,7 @@ module.exports = {
         }
         await withdraw(msg.author.id,parseInt(args[0]))
             .then(async a=>{
-                let ebd = new Discord.MessageEmbed()
+                let ebd = new EmbedBuilder()
                     .setTitle('取款成功')
                     .setDescription(`帳戶錢包：${a['wallet']}\n帳戶銀行：${a['bank']}`)
                     .setThumbnail(msg.author.avatarURL()) //被搜尋者頭像
