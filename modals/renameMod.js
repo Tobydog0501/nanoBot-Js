@@ -17,8 +17,9 @@ module.exports = {
             )
         ),
 
-    async execute(inter,bot,Discord){
-
+    async execute(modal,bot,Discord){
+        await modal.channel.edit({name:`${modal.getTextInputValue('rename-input')}-${modal.channel.id.slice(-4)}`});
+        await modal.reply({content:`已重新命名為${modal.channel.name.slice(0,-5)}`});
     }
 
 }

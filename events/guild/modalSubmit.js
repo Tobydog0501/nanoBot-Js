@@ -1,5 +1,5 @@
 const plu = require('../../plugins/rpg_plugin.js');
-
+/*
 module.exports = async (Discord,bot,modal)=>{
     switch(modal.customId){
       case 'verification-modal':
@@ -71,3 +71,5 @@ module.exports = async (Discord,bot,modal)=>{
       
   }
 }
+
+*/

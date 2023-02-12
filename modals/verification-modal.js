@@ -19,8 +19,17 @@ module.exports = {
             )
         ),
 
-    async execute(inter,bot,Discord){
-
+    async execute(modal,bot,Discord){
+        const response = modal.getTextInputValue('verification-input');
+        if(response.toLowerCase()!=="lock"){
+          await modal.reply({content:"認證失敗!",ephemeral: true});
+          return;
+        }
+        modal.guild.roles.fetch('926252511201988678')
+          .then(async role=>{
+          await modal.member.roles.add(role);
+        })
+        await modal.reply({content:"認證完成!",ephemeral: true});
     }
 
 }
