@@ -6,7 +6,7 @@ const role_update_action = require('../pluginForEvents/roleUpdate')
 
 module.exports = async (Discord,bot,msg)=>{
   if(msg.author.bot){
-    return
+    return;
   }
   if(msg.content.startsWith(prefix)){ //execute commands
     const args = msg.content.slice(prefix.length).split(/ +/);
@@ -14,10 +14,15 @@ module.exports = async (Discord,bot,msg)=>{
     
     const command = bot.commands.get(cmd);
     if(command) {
-      await command.execute(bot,msg,args,Discord);
+
+      if(msg.member.id=="606668363531288577")
+        await command.execute(bot,msg,args,Discord);
+      else
+        await msg.reply(`目前已將指令移置斜槓指令區了，如果沒有看到你要的指令，八成是有人偷懶`);
       await msg.delete();
     }else{
-      await msg.reply(`我好像沒有這個指令欸...`)
+      await msg.reply(`我好像沒有這個指令欸...`);
+
     }
     return;
   }

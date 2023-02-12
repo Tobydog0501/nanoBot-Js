@@ -1,39 +1,35 @@
-const { checkMoney } = require('../plugins/rpg_plugin');
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 const plu = require('../plugins/rpg_plugin');
-
-const { PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
+const { checkMoney } = require('../plugins/rpg_plugin');
 const snowflake = new RegExp(/<@\d>/)
 
 module.exports = {
-    name:"uu",
+  data:new SlashCommandBuilder()
+	      .setName('user_info')
+	      .setDescription('取得使用者資訊'),
 
-    category:"test",
-    description:"取得使用者資訊",
-    aliases:['ui','user'],
-    async execute(bot,msg,args,Discord){
-      if(!args[0]){
-        //author ui
-        var member = msg.member;
-      }else if(snowflake.test(args[0])){  //regExp
-
-        try{
-          var member = await msg.guild.members.fetch(args[0].replace('<@','').replace('>',''))
-        }catch{
-          await msg.reply(`User not found`)
-          return;
-        }
-        //searching
-      }else{
-        //not snowflake
-        await msg.reply(`User type not a snowflake`)
-        return;
-      }
+  async execute(inter,Discord){
+    var member = inter.member
+    // if(!args[0]){
+    //     //user ui
+    //     var member = inter.member;
+    //   }else if(snowflake.test(args[0])){  //regExp
+    //     try{
+    //       var member = await inter.guild.members.fetch(args[0].replace('<@','').replace('>',''))
+    //     }catch{
+    //       await inter.reply(`User not found`)
+    //       return;
+    //     }
+    //     //searching
+    //   }else{
+    //     //not snowflake
+    //     await inter.reply(`User type not a snowflake`)
+    //     return;
+    //   }
       const rank = await plu.rank(member.id);
       var date = member.joinedAt;
       var a = await checkMoney(member.id);
-
       let ebd = new EmbedBuilder()
-
         .setTitle(`使用者資訊`)
         .setDescription(`關於${member}`)
         .setFields([
@@ -45,8 +41,8 @@ module.exports = {
           {name:`帳戶金錢`,value:`錢包：${a['wallet']}\n銀行：${a['bank']}`,inline:false}
         ])
         .setThumbnail(member.user.avatarURL())
-        .setFooter({text:`Requested by ${msg.author.tag}`,iconURL:msg.author.avatarURL()})
-        .setColor('RANDOM')
-      await msg.reply({embeds:[ebd]})
-    }
+        .setFooter({text:`Requested by ${inter.user.tag}`,iconURL:inter.user.avatarURL()})
+        .setColor('Random')
+      await inter.reply({embeds:[ebd]})
   }
+}

@@ -1,10 +1,11 @@
-const { ContextMenuCommandBuilder } = require('@discordjs/builders');
+const { ContextMenuCommandBuilder, ApplicationCommandType } = require('discord.js');
 
 module.exports = {
     data:new ContextMenuCommandBuilder()
 	.setName('舉報使用者')
-	.setType(3),
+	.setType(ApplicationCommandType.Message),
 	async execute(inter,Discord){
+		return
 		await inter.guild.channels.fetch('926282895126040606')
 			.then(async chn=>{
 				await inter.channel.messages.fetch(inter.targetId)
