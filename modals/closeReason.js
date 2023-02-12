@@ -26,7 +26,7 @@ module.exports = {
             {name:'回報區ID',value:modal.channel.name.slice(-4),inline:true},
             {name:'開啟者',value:`<@${modal.channel.topic}>`,inline:true},
             {name:'關閉者',value:`<@${modal.member.id}>`,inline:true},
-            {name:'原因',value:modal.getTextInputValue('reason-input')}
+            {name:'原因',value:modal.fields.getTextInputValue('reason-input')}
             
             ])
             .setColor([0,255,0]);

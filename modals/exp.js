@@ -20,7 +20,7 @@ module.exports = {
 
     async execute(inter,bot,Discord,userId){
         await modal.deferReply({ephemeral:true})
-        var ret = await plu.adminExpSet(userId,modal.getTextInputValue('exp-input'))
+        var ret = await plu.adminExpSet(userId,modal.fields.getTextInputValue('exp-input'))
         await modal.guild.channels.fetch('993330070301180014')
           .then(async chn=>{
             let ebd = new Discord.MessageEmbed()
@@ -34,7 +34,7 @@ module.exports = {
               .setColor('RANDOM')
             await chn.send({embeds:[ebd]})
           })
-        await modal.editReply({content:`Finished.\n已設置該使用者${modal.getTextInputValue('exp-input')}經驗`,ephemeral:true})
+        await modal.editReply({content:`Finished.\n已設置該使用者${modal.fields.getTextInputValue('exp-input')}經驗`,ephemeral:true})
     }
 
 }

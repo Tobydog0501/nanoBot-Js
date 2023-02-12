@@ -1,5 +1,5 @@
 const { ModalBuilder, TextInputBuilder, TextInputStyle,PermissionsBitField,ActionRowBuilder, ButtonBuilder, ButtonStyle,EmbedBuilder } = require('discord.js');
-const customId = "verification-modal"
+const customId = "verification_modal"
 
 module.exports = {
     name:customId,
@@ -20,7 +20,7 @@ module.exports = {
         ),
 
     async execute(modal,bot,Discord){
-        const response = modal.getTextInputValue('verification-input');
+        const response = modal.fields.getTextInputValue('verification-input');
         if(response.toLowerCase()!=="lock"){
           await modal.reply({content:"認證失敗!",ephemeral: true});
           return;

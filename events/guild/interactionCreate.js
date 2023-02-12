@@ -28,7 +28,7 @@ module.exports = async(Discord,bot,inter)=>{
     }
   }else if(inter.isModalSubmit()){
     let customId = inter.customId.split("-")
-    const modal = bot.menus.get(customId[0]);
+    const modal = bot.modals.get(customId[0]);
     if(modal){
       try{
         await modal.execute(inter,bot,Discord,customId[1]?customId[1]:undefined);
@@ -37,10 +37,6 @@ module.exports = async(Discord,bot,inter)=>{
         console.error(err);
 
       }
-      for(i in inter.values){
-        await inter.member.roles.add(inter.values[i]);
-      }
-      await inter.editReply({content:'已成功新增身分組',ephemeral:true});
     }
 
   }else if(inter.isCommand()||inter.isContextMenu()){
