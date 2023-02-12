@@ -1,19 +1,20 @@
 const fetch = require('node-fetch');
 const controller = new AbortController();
+const {ActivityType} = require("discord.js")
 const { signal } = controller;
 const request = require('request')
 const keep_alive = require('../../keep_alive.js')
 const activities_list = [
-  { type: 'Listening',  message: '怎麼罷工才不會被發現🔑'  },
-  { type: 'Watching', message: 'RPG系統編寫進度😏' },
-  { type: 'Watching', message: '香香的圖片❤' },
-  { type: 'Watching', message: '偷懶的小風💤' },
-  { type: 'Playing', message: '自己的指令(?🐋' },
-  { type: 'Watching', message: 'Never gonna give you up' },
-  { type: 'Watching', message: '有沒有人傳瑟瑟連結🧐' },
-  { type: 'Competing', message: '罷工第一名寶座💎' },
-  { type: 'Playing',  message: '罷工遊戲(?🎢'  },
-  { type: 'Playing', message: '跑去讀書的珍奶📞📞📞'}
+  { type: ActivityType.Listening,  message: '怎麼罷工才不會被發現🔑'  },
+  { type: ActivityType.Watching, message: 'RPG系統編寫進度😏' },
+  { type: ActivityType.Watching, message: '香香的圖片❤' },
+  { type: ActivityType.Watching, message: '偷懶的小風💤' },
+  { type: ActivityType.Playing, message: '自己的指令(?🐋' },
+  { type: ActivityType.Watching, message: 'Never gonna give you up' },
+  { type: ActivityType.Watching, message: '有沒有人傳瑟瑟連結🧐' },
+  { type: ActivityType.Competing, message: '罷工第一名寶座💎' },
+  { type: ActivityType.Playing,  message: '罷工遊戲(?🎢'  },
+  { type: ActivityType.Playing, message: '跑去讀書的珍奶📞📞📞'}
 ];
 
 module.exports = async (Discord,bot) => {
