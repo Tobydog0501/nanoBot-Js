@@ -1,4 +1,6 @@
+
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
+
 
 
 module.exports = {
@@ -11,6 +13,7 @@ module.exports = {
                 .setRequired(true))
     ,
     async execute(inter,Discord){
+
       return  //need fix
       
       await inter.deferReply({ephemeral:true});
@@ -19,6 +22,7 @@ module.exports = {
         //     inter.reply('這不是個Snowflake!');
         //     return
         // }
+
         
         var member = await inter.guild.members.fetch(target);
         let ebdd = new Discord.MessageEmbed()

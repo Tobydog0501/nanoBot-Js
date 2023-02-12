@@ -14,6 +14,7 @@ module.exports = async (Discord,bot,msg)=>{
     
     const command = bot.commands.get(cmd);
     if(command) {
+
       if(msg.member.id=="606668363531288577")
         await command.execute(bot,msg,args,Discord);
       else
@@ -21,6 +22,7 @@ module.exports = async (Discord,bot,msg)=>{
       await msg.delete();
     }else{
       await msg.reply(`我好像沒有這個指令欸...`);
+
     }
     return;
   }

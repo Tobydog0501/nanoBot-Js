@@ -11,6 +11,7 @@ module.exports = {
     let time = message.createdTimestamp-msg.createdTimestamp;
     await message.edit({content:`pong!\n${time}ms`})});
     
+
     return;
   }
 }

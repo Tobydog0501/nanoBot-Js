@@ -3,6 +3,7 @@ const rpg_plugin = require('../../plugins/rpg_plugin');
 const { Modal, TextInputComponent, showModal } = discordModals;
 
 module.exports = async(Discord,bot,inter)=>{
+
   if(inter.isButton()){
     let customId = inter.customId.split("-")
     const buttons = bot.buttons.get(customId[0]);
@@ -34,9 +35,16 @@ module.exports = async(Discord,bot,inter)=>{
       }catch(err){
         await inter.reply({content:"好像哪裡有問題...",ephemeral:true});
         console.error(err);
+
       }
+      for(i in inter.values){
+        await inter.member.roles.add(inter.values[i]);
+      }
+      await inter.editReply({content:'已成功新增身分組',ephemeral:true});
     }
+
   }else if(inter.isCommand()||inter.isContextMenu()){
+
       const slashCommand = bot.commands.get(inter.commandName)
       if(slashCommand){
         try{

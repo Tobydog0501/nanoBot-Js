@@ -1,10 +1,12 @@
 const { checkMoney } = require('../plugins/rpg_plugin');
 const plu = require('../plugins/rpg_plugin');
+
 const { PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 const snowflake = new RegExp(/<@\d>/)
 
 module.exports = {
     name:"uu",
+
     category:"test",
     description:"取得使用者資訊",
     aliases:['ui','user'],
@@ -13,6 +15,7 @@ module.exports = {
         //author ui
         var member = msg.member;
       }else if(snowflake.test(args[0])){  //regExp
+
         try{
           var member = await msg.guild.members.fetch(args[0].replace('<@','').replace('>',''))
         }catch{
@@ -28,7 +31,9 @@ module.exports = {
       const rank = await plu.rank(member.id);
       var date = member.joinedAt;
       var a = await checkMoney(member.id);
+
       let ebd = new EmbedBuilder()
+
         .setTitle(`使用者資訊`)
         .setDescription(`關於${member}`)
         .setFields([

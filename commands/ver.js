@@ -7,7 +7,9 @@ module.exports = {
     category:"test",
     async execute(bot,msg,args,Discord){
         if (msg.author.id!='606668363531288577')return;
+
         let com = new ActionRowBuilder()
+
             .setComponents([
                 btn.btn
             ])
