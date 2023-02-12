@@ -4,16 +4,16 @@ const { signal } = controller;
 const request = require('request')
 const keep_alive = require('../../keep_alive.js')
 const activities_list = [
-  { type: 'LISTENING',  message: '怎麼罷工才不會被發現🔑'  },
-  { type: 'WATCHING', message: 'RPG系統編寫進度😏' },
-  { type: 'WATCHING', message: '香香的圖片❤' },
-  { type: 'WATCHING', message: '偷懶的小風💤' },
-  { type: 'PLAYING', message: '自己的指令(?🐋' },
-  { type: 'WATCHING', message: 'Never gonna give you up' },
-  { type: 'WATCHING', message: '有沒有人傳瑟瑟連結🧐' },
-  { type: 'COMPETING', message: '罷工第一名寶座💎' },
-  { type: 'PLAYING',  message: '罷工遊戲(?🎢'  },
-  { type: 'PLAYING', message: '跑去讀書的珍奶📞📞📞'}
+  { type: 'Listening',  message: '怎麼罷工才不會被發現🔑'  },
+  { type: 'Watching', message: 'RPG系統編寫進度😏' },
+  { type: 'Watching', message: '香香的圖片❤' },
+  { type: 'Watching', message: '偷懶的小風💤' },
+  { type: 'Playing', message: '自己的指令(?🐋' },
+  { type: 'Watching', message: 'Never gonna give you up' },
+  { type: 'Watching', message: '有沒有人傳瑟瑟連結🧐' },
+  { type: 'Competing', message: '罷工第一名寶座💎' },
+  { type: 'Playing',  message: '罷工遊戲(?🎢'  },
+  { type: 'Playing', message: '跑去讀書的珍奶📞📞📞'}
 ];
 
 module.exports = async (Discord,bot) => {
