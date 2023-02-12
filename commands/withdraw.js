@@ -2,7 +2,7 @@ const { withdraw } = require("../plugins/rpg_plugin")
 const { PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 
 module.exports = {
-    name:'withdraw',
+    name:'w',
     description:'withdraw to wallet',
     category:"economy",
     aliases:['wd'],

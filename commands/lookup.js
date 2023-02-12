@@ -2,7 +2,7 @@ const { PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle, Embed
 const { checkMoney } = require("../plugins/rpg_plugin")
 
 module.exports = {
-    name:'lookup',
+    name:'lu',
     description:'look up ur money',
     category:"economy",
     aliases:['bank'],
