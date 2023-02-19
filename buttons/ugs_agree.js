@@ -10,14 +10,15 @@ module.exports = {
             .setStyle(ButtonStyle.Success),
     
     async execute(inter,bot,Discord,memb){
-        inter.deferReply({ephemeral:true});
+        await inter.deferReply({ephemeral:true});
         let mem = await inter.guild.members.fetch(memb)
         let comn = inter.message.components[0].toJSON().components;
         let btn = comn.map(v=>{
           v.disabled = true;
-          return new ButtonBuilder.from(v)
+          let btn = ButtonBuilder.from(v)
+          return btn
         })
-        let comm = new ActionRowBuilder.setComponents(btn);
+        let comm = new ActionRowBuilder().setComponents(btn);
         let dmC = await mem.createDM().catch(async err=>{
           await inter.editReply({content:'該成員不允許私訊',ephemeral:true})
         })

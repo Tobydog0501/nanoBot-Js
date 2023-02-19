@@ -11,7 +11,9 @@ module.exports = async(Discord,bot,inter)=>{
       try{
         await buttons.execute(inter,bot,Discord,customId[1]?customId[1]:undefined);
       }catch(err){
-        await inter.reply({content:"好像哪裡有問題...",ephemeral:true});
+        await inter.reply({content:"好像哪裡有問題...",ephemeral:true}).catch(async err=>{
+          await inter.editReply({content:"好像哪裡有問題...",ephemeral:true});
+        });
         console.error(err);
       }
     }
