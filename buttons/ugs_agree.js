@@ -15,9 +15,9 @@ module.exports = {
         let comn = inter.message.components[0].toJSON().components;
         let btn = comn.map(v=>{
           v.disabled = true;
-          return new Discord.MessageButton(v)
+          return new ButtonBuilder.from(v)
         })
-        let comm = new Discord.MessageActionRow().setComponents(btn);
+        let comm = new ActionRowBuilder.setComponents(btn);
         let dmC = await mem.createDM().catch(async err=>{
           await inter.editReply({content:'該成員不允許私訊',ephemeral:true})
         })

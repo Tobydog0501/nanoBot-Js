@@ -29,12 +29,12 @@ module.exports = {
         // tell admin
             inter.guild.channels.fetch('993330070301180014')
                 .then(async chn=>{
-                    let ebd = new Discord.MessageEmbed()
+                    let ebd = new EmbedBuilder()
                         .setTitle('軍火倉庫加入請求')
                         .setDescription(`${inter.member}要求加入軍火倉庫\n等級：${rank['rank']['lv']}`)
                         .setColor('RANDOM')
                         .setFooter({iconURL:inter.member.user.avatarURL(),text:`Requested by ${inter.user.tag}`})
-                    let com = new Discord.MessageActionRow()
+                    let com = new ActionRowBuilder()
                         .setComponents([
                         agree.btn.setCustomId(`uok-${inter.member.id}`),
                         deny.btn.setCustomId(`udeny-${inter.member.id}`)
