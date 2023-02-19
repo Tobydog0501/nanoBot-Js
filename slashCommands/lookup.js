@@ -14,7 +14,7 @@ module.exports = {
                     .setDescription(`使用者${inter.member}帳戶資訊\n帳戶錢包：${a['wallet']}元\n帳戶銀行：${a['bank']}元`)
                     .setThumbnail(inter.user.avatarURL()) //被搜尋者頭像
                     .setTimestamp()
-                    .setColor('RANDOM')
+                    .setColor('Random')
                     .setFooter({text:`Requested by ${inter.user.tag}`,iconURL:inter.user.avatarURL()})
                 await inter.reply({embeds:[ebd]});
             })
