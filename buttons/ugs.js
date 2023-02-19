@@ -32,7 +32,7 @@ module.exports = {
                     let ebd = new EmbedBuilder()
                         .setTitle('軍火倉庫加入請求')
                         .setDescription(`${inter.member}要求加入軍火倉庫\n等級：${rank['rank']['lv']}`)
-                        .setColor('RANDOM')
+                        .setColor('Random')
                         .setFooter({iconURL:inter.member.user.avatarURL(),text:`Requested by ${inter.user.tag}`})
                     let com = new ActionRowBuilder()
                         .setComponents([
