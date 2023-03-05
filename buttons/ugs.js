@@ -1,5 +1,5 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
-const customId = "rename"
+const customId = "ugs"
 const rpg_plugin = require('../plugins/rpg_plugin');
 const agree = require("./ugs_agree")
 const deny = require("./ugs_deny")
