@@ -35,7 +35,7 @@ module.exports = {
         .setFields([
           {name:`使用者名稱`,value:`${member}`,inline:true},
           {name:`使用者ID`,value:`${member.id}`,inline:true},
-          {name:`加入伺服器時間`,value:`${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`,inline:false},
+          {name:`加入伺服器時間`,value:`${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`,inline:false},
           {name:`等級`,value:`當前等級：${rank['rank']['lv']}\n總經驗值：${rank['rank']['totalExp']}\n等級進度：||${rank['per']} (${rank['req']})||`,inline:true},
           {name:`伺服器排名`,value:`${await plu.tops(null,member.id)}`,inline:true},
           {name:`帳戶金錢`,value:`錢包：${a['wallet']}\n銀行：${a['bank']}`,inline:false}

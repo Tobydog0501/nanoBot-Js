@@ -24,8 +24,9 @@ module.exports = {
             close_with_reason.btn,
             rename.btn
             ]);
-        let channel = await inter.guild.channels.create(`ticket-`
-          ,{parent:'977438906012282880', permissionOverwrites:[
+        let channel = await inter.guild.channels.create(
+          {name:`ticket-`,
+          parent:'977438906012282880', permissionOverwrites:[
             {
                 id: inter.guild.id,
                 deny: [PermissionsBitField.Flags.ViewChannel],
@@ -34,7 +35,7 @@ module.exports = {
                 id:inter.user.id,
                 allow:[PermissionsBitField.Flags.ViewChannel]
             }
-          ],topic:`${inter.member.id}`
+          ],topic:`${inter.member.id}`,type:0
           })
         await channel.edit({name:`ticket-${channel.id.slice(-4)}}`});
         await channel.send({content: `<@${inter.user.id}>`,embeds:[ebdd],components:[btnn]})

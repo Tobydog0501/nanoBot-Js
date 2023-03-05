@@ -90,7 +90,7 @@ module.exports = {
         var time = new Date(ui[userId]['lastMsg'][0],ui[userId]['lastMsg'][1],ui[userId]['lastMsg'][2],ui[userId]['lastMsg'][3],ui[userId]['lastMsg'][4],ui[userId]['lastMsg'][5])
         if(Date.now()-time>=10*1000){   //msg exp (1:1)
             if(/https?:\/\/.+/gm.test(msg.content)){  //check url
-                msg = msg.replace(/https?:\/\/.+/,"");
+                msg = msg.content.replace(/https?:\/\/.+/,"");
                 totalExp += 10;
             }else{  //only msg
                 //check emoji

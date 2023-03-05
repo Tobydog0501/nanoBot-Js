@@ -23,7 +23,7 @@ module.exports = {
                         let embed = new EmbedBuilder()
                             .setTitle('排行榜查詢')
                             .setDescription(str)
-                            .setColor('RANDOM')
+                            .setColor('Random')
                             .setTimestamp()
                             .setFooter({iconURL:msg.author.avatarURL(),text:`Request by ${msg.author.tag}`})
                         await msg.reply({embeds:[embed]});

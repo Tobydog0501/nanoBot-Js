@@ -9,7 +9,7 @@ module.exports = {
 	      		.setDescription('你的建議')
 	      		.setRequired(true)),
   async execute(inter,Discord){
-    let ebd = new Discord.MessageEmbed()
+    let ebd = new EmbedBuilder()
           .setTitle('成員建議')
           .setDescription(inter.options.get('建議').value)
           .setFooter({text:inter.user.tag})
