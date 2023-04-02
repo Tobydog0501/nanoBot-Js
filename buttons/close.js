@@ -10,7 +10,7 @@ module.exports = {
             .setEmoji('🔒'),
     
     async execute(inter,bot,Discord){
-        let closeEbd = new Discord.MessageEmbed()
+        let closeEbd = new EmbedBuilder()
           .setTitle('關閉回報區')
           .setDescription(`問題回報區已被關閉，詳細資訊如下：`)
           .setFields([

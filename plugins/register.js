@@ -14,6 +14,14 @@ const clientId = token?'991152087054426132':'1067331220658212897';
 
 const guildId = '926089413933539359';
 
+/**
+ * Register slash commands.
+ * @param {boolean} reset True to reset.
+ * @returns {Promise<void>}
+ * @example
+ * Adding new cmd: await reg(false);
+ * Cleaning all cmd: await reg(true);
+ */
 module.exports = async (reset)=>{
   const SlashcommandFiles = fs.readdirSync('./slashCommands').filter(file => file.endsWith('.js'));
   const rest = new REST({ version: '9' }).setToken(TOKEN);

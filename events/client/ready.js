@@ -2,7 +2,6 @@ const fetch = require('node-fetch');
 const controller = new AbortController();
 const {ActivityType} = require("discord.js")
 const { signal } = controller;
-const request = require('request')
 const keep_alive = require('../../keep_alive.js')
 const activities_list = [
   { type: ActivityType.Listening,  message: '怎麼罷工才不會被發現🔑'  },
