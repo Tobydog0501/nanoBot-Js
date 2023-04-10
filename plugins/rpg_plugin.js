@@ -5,7 +5,8 @@ var ui = JSON.parse(fs.readFileSync('./env.json', 'utf-8'));
 const repair = require("./repair");
 const adventures = require('./rpgs/adventure');
 const IDTYPE = new RegExp(/\d{18,}/)
-
+const file_edit = require("./file_edit");
+const file = new file_edit();
 
 module.exports = {
 
@@ -441,14 +442,7 @@ module.exports = {
      */
     async write(w,w2){
         if(!!w){
-            await repair();
-            var str = JSON.stringify(w)
-            await fsPromise.writeFile('./env.json',str)
-                .catch(err=>{
-                    return new Promise((res,rej)=>{
-                        rej(err);
-                    })
-                })
+            await file.write(w);
             return new Promise(res=>res());
         }else{
             // w=null
@@ -462,15 +456,9 @@ module.exports = {
                     rej(`Please pass in correct parameter\n{'user':userID,'ugs':T||F}`)
                 })
             }
-            await repair();
             ui[w2['user']]['ugs'] = w2['ugs']
-            var str = JSON.stringify(ui)
-            await fsPromise.writeFile('./env.json',str)
-                .catch(err=>{
-                    return new Promise((res,rej)=>{
-                        rej(err);
-                    })
-                })
+            await file.write(ui);
+           
             return new Promise(res=>res());
         }
     },

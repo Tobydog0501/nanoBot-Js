@@ -14,7 +14,7 @@ module.exports = {
                     .setDescription(`使用者${msg.member}帳戶資訊\n帳戶錢包：${a['wallet']}元\n帳戶銀行：${a['bank']}元`)
                     .setThumbnail(msg.author.avatarURL()) //被搜尋者頭像
                     .setTimestamp()
-                    .setColor('RANDOM')
+                    .setColor('Random')
                     .setFooter({text:`Requested by ${msg.author.tag}`,iconURL:msg.author.avatarURL()})
                 await msg.reply({embeds:[ebd]});
             })
