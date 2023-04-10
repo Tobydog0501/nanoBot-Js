@@ -1,5 +1,6 @@
 const { ModalBuilder, TextInputBuilder, TextInputStyle,PermissionsBitField,ActionRowBuilder, ButtonBuilder, ButtonStyle,EmbedBuilder } = require('discord.js');
 const customId = "exp"
+const plu = require("../plugins/rpg_plugin")
 
 module.exports = {
     name:customId,
@@ -34,7 +35,7 @@ module.exports = {
               .setColor('Random')
             await chn.send({embeds:[ebd]})
           })
-        await modal.editReply({content:`Finished.\n已設置該使用者${modal.fields.getTextInputValue('exp-input')}經驗`,ephemeral:true})
+        await modal.reply({content:`Finished.\n已設置該使用者${modal.fields.getTextInputValue('exp-input')}經驗`,ephemeral:true})
     }
 
 }

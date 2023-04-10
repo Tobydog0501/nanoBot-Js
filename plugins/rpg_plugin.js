@@ -4,7 +4,7 @@ const dungeons = require('./rpgs/dungeons');
 var ui = JSON.parse(fs.readFileSync('./env.json', 'utf-8'));
 const repair = require("./repair");
 const adventures = require('./rpgs/adventure');
-const IDTYPE = new RegExp(/\d{18,}/)
+const IDTYPE = new RegExp(/\d{17,}/)
 const file_edit = require("./file_edit");
 const file = new file_edit();
 
