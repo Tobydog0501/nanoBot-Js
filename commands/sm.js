@@ -24,7 +24,7 @@ module.exports = {
                 let ebd = new EmbedBuilder()
                     .setTitle("設定金錢數量")
                     .setColor("Random")
-                    .setDescription(`成功，目前金額總數:${ui["wallet"]} 銀行:${ui["bank"]}`)
+                    .setDescription(`成功，目前<@${args[0]}>金額總數:${ui["wallet"]} 銀行:${ui["bank"]}`)
                     .setFooter({text:`Action processed by ${msg.author.tag}`})
                     .setTimestamp()
                 await msg.channel.send({embeds:[ebd]})
