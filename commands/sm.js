@@ -19,8 +19,8 @@ module.exports = {
         // args[1] = amount;
         if(args[0] && args[1]){
             try{
-                parseInt(args[1]);
-                const ui = await setMoney(args[0],args[1]);
+                let mon = parseInt(args[1]);
+                const ui = await setMoney(args[0],mon);
                 let ebd = new EmbedBuilder()
                     .setTitle("設定金錢數量")
                     .setColor("Random")
