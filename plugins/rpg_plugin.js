@@ -476,7 +476,7 @@ module.exports = {
         if(Date.now()>=time){
             let da = new Date();
             //success
-            await module.exports.actions(userId,[{'k':'wallet','v':200,'act':'+'},{'k':'login','v':[da.getFullYear(),da.getMonth(),da.getDate(),da.getHours()]}]);
+            await module.exports.actions(userId,[{'k':'wallet','v':100,'act':'+'},{'k':'login','v':[da.getFullYear(),da.getMonth(),da.getDate(),da.getHours()]}]);
             await module.exports.write(ui);
             return new Promise((res,rej)=>{
                 res(ui[userId]);
@@ -580,7 +580,7 @@ module.exports = {
         let da = new Date();
         var time = new Date(ui[userId]['work'][0],ui[userId]['work'][1],ui[userId]['work'][2],ui[userId]['work'][3]);
         if(Date.now()-time>=3*60*60*1000){
-            let mon = 100 + Math.floor(Math.random()*199)+1;
+            let mon = 20 + Math.floor(Math.random()*29)+1;
             await module.exports.actions(userId,[{'k':'wallet','v':mon,'act':'+'},{'k':'work','v':[da.getFullYear(),da.getMonth(),da.getDate(),da.getHours()]}])
             return new Promise(res=>res(mon));
         }else{
