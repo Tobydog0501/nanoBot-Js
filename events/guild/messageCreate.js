@@ -26,6 +26,10 @@ module.exports = async (Discord,bot,msg)=>{
     }
     return;
   }
+  if(msg.content.startsWith("$")){
+    // Other bots' Commands
+    return;
+  }
   await exp(msg,msg.author.id)
         .then(async a=>{
           if(a!==undefined){
