@@ -14,3 +14,5 @@ keep_alive
 rpg_plugin_test.js
 shop.json
 serverEnv.json
+package.json
+package-lock.json

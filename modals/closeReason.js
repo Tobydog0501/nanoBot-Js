@@ -1,4 +1,5 @@
 const { ModalBuilder, TextInputBuilder, TextInputStyle,PermissionsBitField,ActionRowBuilder, ButtonBuilder, ButtonStyle,EmbedBuilder } = require('discord.js');
+const discordTranscripts = require('discord-html-transcripts');
 const customId = "closeReason"
 
 module.exports = {
@@ -18,6 +19,7 @@ module.exports = {
         ),
 
     async execute(modal,bot,Discord){
+        const channel = modal.channel; // or however you get your TextChannel
         let closeEbd = new EmbedBuilder()
             .setTitle('關閉回報區')
             .setDescription(`問題回報區已被關閉，詳細資訊如下：`)
@@ -31,16 +33,17 @@ module.exports = {
             ])
             .setColor([0,255,0]);
         await modal.reply('ok');
+        const attachment = await discordTranscripts.createTranscript(channel);
         await modal.guild.channels.fetch('926282895126040606')
             .then(async channel=>{
-            await channel.send({embeds:[closeEbd]});
+            await channel.send({embeds:[closeEbd],files: [attachment]});
         });
         try{
             await modal.guild.members.fetch(modal.channel.topic)
             .then(async mem=>{
                 await mem.createDM()
                 .then(async channel=>{
-                await channel.send({embeds:[closeEbd]});
+                await channel.send({embeds:[closeEbd],files: [attachment],});
                 });
             });
         }catch{};
