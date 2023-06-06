@@ -10,7 +10,7 @@ var commands = [];
 
 // Place your client and guild ids here
 
-const clientId = token?'991152087054426132':'1067331220658212897';
+const clientId = token?'1115496583878942771':'1067331220658212897';
 
 const guildId = '926089413933539359';
 
