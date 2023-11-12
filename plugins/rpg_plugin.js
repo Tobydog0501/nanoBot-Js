@@ -21,7 +21,7 @@ module.exports = {
      * await initial(userId);
      */
     async initial(userId){ //reset
-        var ui = read();
+        var ui = module.exports.read();
         if(!IDTYPE.test(userId)){   //Check if userId is legal
             ui = null;
             return new Promise((res,rej)=>{
@@ -58,7 +58,7 @@ module.exports = {
      * Not initial: await actions(userid,[{'k':key,'v':value,'act':'+'}]);
      */
     async actions(userId,type,init){
-        var ui = read();
+        var ui = module.exports.read();
         await module.exports.initial(userId);
         var temp_ui = JSON.parse(fs.readFileSync('./env.json', 'utf-8'))[userId];
         for(const i of type){   //i = {'k':key,'v':value,'act':'+'}
@@ -98,7 +98,7 @@ module.exports = {
      * await rank(userId);
      */
     async rank(userId){  //read
-        var ui = read();
+        var ui = module.exports.read();
         await module.exports.initial(userId)
             .catch(rej=>{
                 return new Promise((res,reject)=>{
@@ -121,7 +121,7 @@ module.exports = {
      * await exp(msg,userId);
      */
     async exp(msg,userId){   //earn exp    //return Promise
-        var ui = read();
+        var ui = module.exports.read();
         var totalExp = 0;
         await module.exports.initial(userId);
         msg.attachments.forEach(v=>{
@@ -171,7 +171,7 @@ module.exports = {
      * Set: await adminExpSet(userId,"100");
      */
     async adminExpSet(userId,exp){    //give exp
-        var ui = read();
+        var ui = module.exports.read();
         var set = false;
         await module.exports.initial(userId)
         var before = {'lv': ui[userId]['lv'],'exp':ui[userId]['exp'],'totalExp':ui[userId]['totalExp']};
@@ -276,7 +276,7 @@ module.exports = {
      * Set: await checkLevelUp(userId,true);
      */
     async checkLevelUp(userId,set){ //return Promise
-        var ui = read();
+        var ui = module.exports.read();
         var levelExpRequire = [80,150,250];
         var check = false,check2 = false;
         if(set){    //if mode is set, not plus or minus
@@ -330,7 +330,7 @@ module.exports = {
      * await expAmount(userId);
      */
     async expAmount(userId){
-        var ui = read();
+        var ui = module.exports.read();
         var levelExpRequire = [80,150,250];
         var amount = 0;
         await module.exports.initial(userId);
@@ -360,7 +360,7 @@ module.exports = {
      * User: await tops(null,userId);
      */
     async tops(page,user){
-        var ui = read();
+        var ui = module.exports.read();
         var list = []
         for(var i in ui){
             list.push({'userId':i,'rank':ui[i]});
@@ -401,7 +401,7 @@ module.exports = {
      * await nexLv(userId);
      */
     async nextLv(userId){
-        var ui = read();
+        var ui = module.exports.read();
         var levelExpRequire = [80,150,250];
         var currentExp = ui[userId]['exp'];
         var currentLv = ui[userId]['lv'];
@@ -425,7 +425,7 @@ module.exports = {
      * await roleUpdate(userId);
      */
     async roleUpdate(userId){
-        var ui = read();
+        var ui = module.exports.read();
         var rank = ui[userId];
         var ret_level = new Map();
         [2,5,8,11,15,18,20,23,27,30,35,40].forEach(v=>{
@@ -460,7 +460,7 @@ module.exports = {
      * Ugs: await write(null,{'user':userID,'ugs':true|false});
      */
     async write(w,w2){
-        var ui = read();
+        var ui = module.exports.read();
         if(!!w){
             await file.write(w);
             return new Promise(res=>res());
@@ -491,7 +491,7 @@ module.exports = {
      * await login(userId);
      */
     async login(userId){
-        var ui = read();
+        var ui = module.exports.read();
         await module.exports.actions(userId,[{'k':'wallet','v':200,'act':'+'},{'k':'login','v':[2022,6,6]}],true);
         var time = new Date(ui[userId]['login'][0],ui[userId]['login'][1],ui[userId]['login'][2]+1)
         if(Date.now()>=time){
@@ -519,7 +519,7 @@ module.exports = {
      * Set: await setMoney(userId,100);
      */
     async setMoney(userId,amount,act=undefined){
-        var ui = read();
+        var ui = module.exports.read();
         await module.exports.actions(userId,[{'k':'wallet','v':amount,'act':act}]);
         return new Promise(res=>res(ui[userId]));
     },
@@ -533,7 +533,7 @@ module.exports = {
      * await deposit(userId,100);
      */
     async deposit(userId,amount){
-        var ui = read();
+        var ui = module.exports.read();
         await module.exports.actions(userId,[{'k':'wallet','v':amount,'act':'-'},{'k':'bank','v':amount,'act':'+'}])
             .catch(err=>{
                 return new Promise((res,rej)=>rej('沒有足夠金錢'));
@@ -550,7 +550,7 @@ module.exports = {
      * await withdraw(userId,100);
      */
     async withdraw(userId,amount){
-        var ui = read();
+        var ui = module.exports.read();
         await module.exports.actions(userId,[{'k':'wallet','v':amount,'act':'+'},{'k':'bank','v':amount,'act':'-'}])
         .catch(err=>{
             return new Promise((res,rej)=>rej('沒有足夠金錢'));
@@ -600,7 +600,7 @@ module.exports = {
      * await work(userId);
      */
     async work(userId){
-        var ui = read();
+        var ui = module.exports.read();
         await module.exports.actions(userId,[{'k':'work','v':[2022,6,6,2]}],true);
         let da = new Date();
         var time = new Date(ui[userId]['work'][0],ui[userId]['work'][1],ui[userId]['work'][2],ui[userId]['work'][3]);
@@ -622,7 +622,7 @@ module.exports = {
      * await checkMoney(userId);
      */
     async checkMoney(userId){
-        var ui = read();
+        var ui = module.exports.read();
         await module.exports.actions(userId,[{'k':'wallet','v':0},{'k':'bank','v':0}],true);
         return new Promise(res=>{
             res(ui[userId])
