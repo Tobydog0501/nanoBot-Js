@@ -58,8 +58,8 @@ module.exports = {
      * Not initial: await actions(userid,[{'k':key,'v':value,'act':'+'}]);
      */
     async actions(userId,type,init){
-        var ui = module.exports.read();
         await module.exports.initial(userId);
+        var ui = module.exports.read();
         var temp_ui = JSON.parse(fs.readFileSync('./env.json', 'utf-8'))[userId];
         for(const i of type){   //i = {'k':key,'v':value,'act':'+'}
             if(!temp_ui[i['k']]){
@@ -98,13 +98,13 @@ module.exports = {
      * await rank(userId);
      */
     async rank(userId){  //read
-        var ui = module.exports.read();
         await module.exports.initial(userId)
             .catch(rej=>{
                 return new Promise((res,reject)=>{
                     reject(rej);
                 })
             });
+        var ui = module.exports.read();
         var next = await module.exports.nextLv(userId)
 
         return new Promise((res,reject)=>{
@@ -121,9 +121,9 @@ module.exports = {
      * await exp(msg,userId);
      */
     async exp(msg,userId){   //earn exp    //return Promise
-        var ui = module.exports.read();
         var totalExp = 0;
         await module.exports.initial(userId);
+        var ui = module.exports.read();
         msg.attachments.forEach(v=>{
             if(v!==undefined){
                 let a = v.contentType.split('/')[0]
@@ -171,9 +171,9 @@ module.exports = {
      * Set: await adminExpSet(userId,"100");
      */
     async adminExpSet(userId,exp){    //give exp
-        var ui = module.exports.read();
         var set = false;
-        await module.exports.initial(userId)
+        await module.exports.initial(userId);
+        var ui = module.exports.read();
         var before = {'lv': ui[userId]['lv'],'exp':ui[userId]['exp'],'totalExp':ui[userId]['totalExp']};
         if(exp.includes('+')){
             ui[userId]['exp'] += parseInt(exp.replace('+',''));
@@ -330,10 +330,10 @@ module.exports = {
      * await expAmount(userId);
      */
     async expAmount(userId){
-        var ui = module.exports.read();
         var levelExpRequire = [80,150,250];
         var amount = 0;
         await module.exports.initial(userId);
+        var ui = module.exports.read();
         for(var lv=ui[userId]['lv'];lv>0;lv--){
             if(lv>3){
                 amount += lv*100;

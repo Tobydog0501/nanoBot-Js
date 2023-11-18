@@ -7,6 +7,7 @@ module.exports = {
 	      .setDescription('查詢餘額'),
 
   async execute(inter,Discord){
+    await inter.deferReply();
     await checkMoney(inter.user.id)
             .then(async a=>{
                 let ebd = new EmbedBuilder()
@@ -16,7 +17,7 @@ module.exports = {
                     .setTimestamp()
                     .setColor('Random')
                     .setFooter({text:`Requested by ${inter.user.tag}`,iconURL:inter.user.avatarURL()})
-                await inter.reply({embeds:[ebd]});
+                await inter.editReply({embeds:[ebd]});
             })
   }
 }

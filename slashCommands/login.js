@@ -7,6 +7,7 @@ module.exports = {
 	      .setDescription('每日登入'),
 
   async execute(inter,Discord){
+    await inter.deferReply();
     await login(inter.user.id)
             .then(async a=>{
                 let ebd = new EmbedBuilder()
@@ -16,10 +17,10 @@ module.exports = {
                     .setTimestamp()
                     .setColor('Random')
                     .setFooter({text:`Requested by ${inter.user.tag}`,iconURL:inter.user.avatarURL()})
-                await inter.reply({embeds:[ebd]});
+                await inter.editReply({embeds:[ebd]});
             })
             .catch(async (err)=>{
-                await inter.reply(err);
+                await inter.editReply({content:err});
             })
   }
 }

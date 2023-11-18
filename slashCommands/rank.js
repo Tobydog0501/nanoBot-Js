@@ -10,7 +10,7 @@ module.exports = {
   async execute(inter,Discord){
     // var userId = args[0]?args[0].replace('<@','').replace('>',''):inter.user.id;
     var userId = inter.user.id;
-    await inter.deferReply()
+    await inter.deferReply();
     var ui = await plu.rank(userId);
     var abc = ['']
     var emoji = '';

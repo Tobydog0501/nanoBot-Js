@@ -18,6 +18,7 @@ module.exports = {
                 .setRequired(false)),
 
     async execute(inter,Discord){
+        await inter.deferReply();
         const page = inter.options.get('頁碼')?inter.options.get('頁碼').value:null;
         const user = inter.options.get('使用者')?inter.options.get('使用者').value.replace("<@","").replace(">",""):null;
         if(!user){    //have page
@@ -37,7 +38,7 @@ module.exports = {
                             .setColor('Random')
                             .setTimestamp()
                             .setFooter({iconURL:inter.user.avatarURL(),text:`Request by ${inter.user.tag}`})
-                        await inter.reply({embeds:[embed]});
+                        await inter.editReply({embeds:[embed]});
                         await r_u_ac(inter,inter.member.id)
                     }catch(e){
                         console.error(e)
@@ -46,11 +47,11 @@ module.exports = {
         }else{
             await plu.tops(null,user)
                 .then(async rank=>{
-                    await inter.reply(`使用者<@${user}>排名：${rank}`)
+                    await inter.editReply({content:`使用者<@${user}>排名：${rank}`})
                     await r_u_ac(inter,user);
                 })
                 .catch(async err=>{
-                    await inter.reply(err);
+                    await inter.editReply({content:err});
                 })
         }
     }

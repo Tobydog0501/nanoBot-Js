@@ -1,14 +1,37 @@
 const { exp } = require("../../plugins/rpg_plugin");
 const fs = require('fs')
 const path = "./token.json"
+const Discord = require("discord.js");
 const prefix = fs.existsSync(path)?"m/":"n/"
 const role_update_action = require('../pluginForEvents/roleUpdate')
 
+/**
+ * 
+ * @param {Discord} Discord 
+ * @param {Discord.Client} bot 
+ * @param {Discord.Message} msg 
+ * @returns 
+ */
 module.exports = async (Discord,bot,msg)=>{
   if(msg.author.bot){
     return;
   }
   if(msg.content.startsWith(prefix)){ //execute commands
+    bot.commands = new Discord.Collection();
+    const commandFiles = fs.readdirSync('./commands/').filter(file=>file.endsWith('.js'));
+    for(const file of commandFiles){
+      const command = require(`../../commands/${file}`);
+      if(command.name){
+        bot.commands.set(command.name,command);
+        if(command.aliases){
+          for(var aliases of command.aliases){
+            bot.commands.set(aliases,command);
+          }
+        }
+      }else{
+        continue;
+      }
+    }
     const args = msg.content.slice(prefix.length).split(/ +/);
     const cmd = args.shift().toLowerCase(); //改為小寫
     
@@ -24,6 +47,7 @@ module.exports = async (Discord,bot,msg)=>{
       await msg.reply(`我好像沒有這個指令欸...`);
 
     }
+    bot.command = null
     return;
   }
   if(msg.content.startsWith("$")){

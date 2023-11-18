@@ -7,6 +7,7 @@ module.exports = {
 	      .setDescription('嘗試工作'),
 
   async execute(inter,Discord){
+    await inter.deferReply();
     await work(inter.user.id)
             .then(async a=>{
                 let ebd = new EmbedBuilder()
@@ -16,11 +17,11 @@ module.exports = {
                     .setColor('Random')
                     .setTimestamp()
                     .setFooter({text:`Requested by ${inter.user.tag}`,iconURL:inter.user.avatarURL()})
-                await inter.reply({embeds:[ebd]});
+                await inter.editReply({embeds:[ebd]});
             })
             .catch(async (err)=>{
                 console.log(err)
-                await inter.reply('你過勞了！請休息3小時');
+                await inter.editReply({content:'你過勞了！請休息3小時'});
             })
   }
 }

@@ -9,6 +9,7 @@ module.exports = {
 	      .setDescription('取得使用者資訊'),
 
   async execute(inter,Discord){
+    await inter.deferReply();
     var member = inter.member
     // if(!args[0]){
     //     //user ui
@@ -43,6 +44,6 @@ module.exports = {
         .setThumbnail(member.user.avatarURL())
         .setFooter({text:`Requested by ${inter.user.tag}`,iconURL:inter.user.avatarURL()})
         .setColor('Random')
-      await inter.reply({embeds:[ebd]})
+      await inter.editReply({embeds:[ebd]})
   }
 }
