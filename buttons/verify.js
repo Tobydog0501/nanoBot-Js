@@ -1,6 +1,7 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 const customId = "verify"
 const modal = require("../modals/verification-modal")
+
 module.exports = {
     name:customId,
     btn:new ButtonBuilder()

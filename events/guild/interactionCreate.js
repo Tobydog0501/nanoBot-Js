@@ -71,7 +71,7 @@ module.exports = async(Discord,bot,inter)=>{
     const customId = inter.customId.split("-")
     for(const file of modals){
       const command = require(`../../modals/${file}`);
-      if(command.name){
+      if(command.name==customId[0]){
         // bot.modals.set(command.name,command);
         try{
           await command.execute(inter,bot,Discord,customId[1]?customId[1]:undefined);
