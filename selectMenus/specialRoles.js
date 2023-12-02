@@ -9,14 +9,14 @@ module.exports = {
             .addOptions(
                 { label: '深夜食堂門票', value: '926262190619643925', description: '解鎖充滿可愛天竺鼠車車的票' },
                 { label: '地下酒窖通行', value: '926262352838529055', description: '這裡的天竺鼠車車比較深奧' },
-                { label: '你就是封弊者!',value: '1003645219012624435', description: '解鎖公測區域，可以參與伺服器不穩定功能的公測' }
+                // { label: '你就是封弊者!',value: '1003645219012624435', description: '解鎖公測區域，可以參與伺服器不穩定功能的公測' }
             )
             .setMinValues(1)
             .setMaxValues(3),
 
     async execute(inter,bot,Discord){
         await inter.deferReply({ephemeral:true});
-        let roles = ["926262190619643925","926262352838529055","1003645219012624435"];
+        let roles = ["926262190619643925","926262352838529055"];
         for(let role of roles){
             if(!inter.values.includes(role)){
                 inter.member.roles.remove(role);
