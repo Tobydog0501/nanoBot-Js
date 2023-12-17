@@ -1,11 +1,11 @@
-const sqlite3 = require('sqlite3').verbose();
+const database = require('better-sqlite3');
 
 class plugin{
   constructor(){
     /**
      * @type {Database}
      */
-    this.db = new sqlite3.Database('./data.db', (err) => {
+    this.db = new database.Database('./data.db', (err) => {
         if (err)
         console.error(err.message);
 
